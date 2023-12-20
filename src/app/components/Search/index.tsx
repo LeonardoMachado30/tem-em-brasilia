@@ -18,8 +18,8 @@ function Search() {
     if (data.search !== "") {
       // const dbRef = collection(firestore, "employers");
       // console.log(dbRef);
-      var query = firebase.database.ref("employer")
-      console.log(query)
+      // var query = firebase.database.ref("employer")
+      // console.log(query)
       // const snapshot = await query
       //   .where("name", "==", search)
       //   .get()
