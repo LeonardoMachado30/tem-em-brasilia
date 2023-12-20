@@ -39,3 +39,6 @@ next-env.d.ts
 # firebase
 .firebase
 .github
+.runtimeconfig.json
+firebase-debug.log
+firebase-debug.*.log
