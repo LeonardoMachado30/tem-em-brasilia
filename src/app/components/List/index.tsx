@@ -1,15 +1,15 @@
 "use client";
+import Image from "next/image";
 import { useFirestoreCollectionData } from "reactfire";
 import { collection, orderBy, query } from "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useState } from "react";
 import { ButtonPrimary } from "../Buttons/ButtonPrimary";
-import Image from "next/image";
 import logo_dvx from "$/img/logo-dvx.png";
 import { ModalDelete } from "../Modal/ModalDelete";
 import { ButtonClose } from "../Buttons/ButtonClose";
 import { ModalAdd } from "@/components/Modal/ModalAdd";
-import { FirebaseServices } from "@/app/firebase/config";
+import { FirebaseServices } from "@/app/firebase/FirebaseServices";
 
 function Card({ handleClose }: { handleClose: (data: any) => void }) {
   const firestore = useFirestore();
@@ -73,7 +73,7 @@ function List() {
           Adicionar
         </ButtonPrimary>
 
-        <div className="relative flex flex-wrap justify-center gap-8 mx-auto p-4 w-full">
+        <div className="relative flex flex-wrap justify-center md:justify-start gap-8 mx-auto p-4 w-full">
           <FirebaseServices>
             <Card
               handleClose={(data) => {

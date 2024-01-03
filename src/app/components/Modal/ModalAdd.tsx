@@ -6,7 +6,7 @@ import { ButtonClose } from "@/components/Buttons/ButtonClose";
 import { AlertContext } from "@/app/lib/context/alertContexct";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { serviceAccount } from "@/app/firebase/config";
+import { serviceAccount } from "@/app/firebase/FirebaseServices";
 import { Employer } from "@/model/EmployerModel";
 
 type ModalAddProp = {
