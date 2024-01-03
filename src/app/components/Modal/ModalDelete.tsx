@@ -4,7 +4,7 @@ import { Employer } from "@/model/EmployerModel";
 import { useContext } from "react";
 import { AlertContext } from "@/app/lib/context/alertContexct";
 import { initializeApp } from "firebase/app";
-import { serviceAccount } from "@/app/firebase/config";
+import { serviceAccount } from "@/app/firebase/FirebaseServices";
 
 type DialogProps = {
   handleClose: () => void;
