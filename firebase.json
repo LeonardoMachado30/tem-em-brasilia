@@ -8,11 +8,7 @@
   },
   "hosting": {
     "source": ".",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "frameworksBackend": {
       "region": "us-central1"
     }
@@ -22,10 +18,10 @@
   },
   "emulators": {
     "functions": {
-      "port": 3001
+      "port": 5001
     },
     "hosting": {
-      "port": 3000
+      "port": 5000
     },
     "ui": {
       "enabled": true
