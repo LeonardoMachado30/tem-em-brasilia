@@ -7,6 +7,7 @@ body {
 }
 
 .scale-in-ver-top {
+  /* background-image: url("/public/img/bg-brasilia.png") */
   -webkit-animation: scale-in-ver-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     both;
   animation: scale-in-ver-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -54,4 +55,65 @@ body {
     transform-origin: 100% 0%;
     opacity: 1;
   }
+}
+
+.open-info:hover .item-hidden {
+  animation: open-info 200ms linear both;
+}
+
+.open-info:hover .container-animation {
+  transform: translateY(-50px);
+  transition: all;
+  transition-duration: 400ms;
+}
+
+.item-hidden {
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+}
+
+.item-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.open-info:hover .item-hidden {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes open-info {
+  0% {
+    bottom: 0;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: -34px;
+  }
+}
+
+.animation-bg {
+  background-position: 0;
+  animation: bg-animation 500s linear infinite;
+}
+
+@keyframes bg-animation {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: -1200px;
+  }
+}
+
+.ellipse {
+  white-space: nowrap;
+  width: 14em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
