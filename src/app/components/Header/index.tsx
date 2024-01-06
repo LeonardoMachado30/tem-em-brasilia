@@ -1,23 +1,11 @@
 "use client";
 import Image from "next/image";
 import logo from "$/img/logo_alternative.png";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "@/app/firebase/firebaseInitApp";
 import Link from "next/link";
+import { Login } from "./Login";
+import { FirebaseServices } from "@/app/firebase/FirebaseServices";
 
 function Header() {
-  const loginWhitGoogle = async () => {
-    try {
-      const googleProvider = new GoogleAuthProvider();
-
-      await signInWithPopup(auth, googleProvider);
-
-      return;
-    } catch (error) {
-      throw new Error(`${error}`);
-    }
-  };
-
   return (
     <header className="fixed top-0 h-[60px] w-full z-10 bg-[#339B5B]">
       <nav className="flex justify-around items-center mx-auto max-w-[1420px] h-full">
@@ -30,9 +18,6 @@ function Header() {
           />
         </Link>
         <ul className="text-white flex justify-center items-center gap-4 ">
-          <li>
-            <button onClick={loginWhitGoogle}>Entrar com gogole</button>
-          </li>
           <li>
             <Link href="/cadastrar-empresa0" className="hover:text-[#C7C900]">
               Cadastrar empresa
@@ -47,6 +32,11 @@ function Header() {
             <Link href="/contatos" className="hover:text-[#C7C900]">
               Contatos
             </Link>
+          </li>
+          <li>
+            <FirebaseServices>
+              <Login />
+            </FirebaseServices>
           </li>
         </ul>
       </nav>
