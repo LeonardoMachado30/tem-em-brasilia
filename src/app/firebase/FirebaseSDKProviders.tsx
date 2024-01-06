@@ -8,7 +8,6 @@ import {
 } from "reactfire";
 import { getAuth } from "firebase/auth"; // Firebase v9+
 import { getDatabase } from "firebase/database"; // Firebase v9+
-import { ReactNode } from "react";
 import { IChildren } from "@/model/EmployerModel";
 
 export const FirebaseSDKProviders = ({ children }: IChildren) => {
