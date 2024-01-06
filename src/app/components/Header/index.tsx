@@ -1,33 +1,52 @@
+"use client";
 import Image from "next/image";
 import logo from "$/img/logo_alternative.png";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "@/app/firebase/firebaseInitApp";
+import Link from "next/link";
 
 function Header() {
+  const loginWhitGoogle = async () => {
+    try {
+      const googleProvider = new GoogleAuthProvider();
+
+      await signInWithPopup(auth, googleProvider);
+
+      return;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  };
+
   return (
     <header className="fixed top-0 h-[60px] w-full z-10 bg-[#339B5B]">
       <nav className="flex justify-around items-center mx-auto max-w-[1420px] h-full">
-        <a href="/">
+        <Link href="/">
           <Image
             src={logo}
             alt="Logo tem em brasilia"
             width={200}
             height={60}
           />
-        </a>
+        </Link>
         <ul className="text-white flex justify-center items-center gap-4 ">
           <li>
-            <a href="/cadastrar-empresa0" className="hover:text-[#C7C900]">
+            <button onClick={loginWhitGoogle}>Entrar com gogole</button>
+          </li>
+          <li>
+            <Link href="/cadastrar-empresa0" className="hover:text-[#C7C900]">
               Cadastrar empresa
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/sobre-nos" className="hover:text-[#C7C900]">
+            <Link href="/sobre-nos" className="hover:text-[#C7C900]">
               Sobre nos
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/contatos" className="hover:text-[#C7C900]">
+            <Link href="/contatos" className="hover:text-[#C7C900]">
               Contatos
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
