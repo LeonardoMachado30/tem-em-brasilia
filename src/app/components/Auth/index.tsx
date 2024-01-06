@@ -28,7 +28,7 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
     }
   };
 
-  if (signInCheckResult?.data?.signedIn) {
+  if (signInCheckResult?.signedIn) {
     return (
       <div>
         {React.cloneElement(children as React.ReactElement, {
