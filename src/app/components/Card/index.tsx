@@ -79,7 +79,7 @@ function Card() {
                 />
                 <div className="flex flex-col">
                   <p
-                    className="text-lg font-bold ellipse"
+                    className="text-lg font-bold --ellipse"
                     title={employers.name}
                   >
                     {employers.name}
