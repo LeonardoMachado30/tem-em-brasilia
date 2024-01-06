@@ -12,6 +12,7 @@ import icon_whatsapp from "$/img/icons/whatsapp.png";
 import { BuildingOffice2Icon, MapPinIcon } from "@heroicons/react/24/outline";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Link from "next/dist/client/link";
 
 type SocialMediasProps = {
   image: StaticImageData;
@@ -29,9 +30,9 @@ function SocialMedias() {
     <div className="flex gap-2 w-full items-center item-hidden">
       {imageArr.map(({ image, alt }: SocialMediasProps, index) => {
         return (
-          <a key={index}>
+          <div key={index}>
             <Image src={image} alt={alt} width={36} height={36} />
-          </a>
+          </div>
         );
       })}
     </div>
@@ -52,8 +53,8 @@ function Card() {
         <Skeleton count={2} />
       ) : (
         data.map((employers, index) => (
-          <a
-            href="#"
+          <Link
+            href="/"
             key={employers.id}
             className="flex flex-col relative rounded-md max-w-[420px] w-full shadow bg-white open-info"
           >
@@ -100,7 +101,7 @@ function Card() {
               </div>
               <SocialMedias />
             </div>
-          </a>
+          </Link>
         ))
       )}
     </>
