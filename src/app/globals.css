@@ -111,9 +111,9 @@ body {
   }
 }
 
-.ellipse {
+.--ellipse {
   white-space: nowrap;
-  width: 14em;
+  max-width: 12em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
