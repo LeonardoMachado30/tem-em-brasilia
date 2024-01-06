@@ -1,25 +1,9 @@
-"use client";
-import { getFirestore } from "firebase/firestore";
+import { IChildren } from "@/model/EmployerModel";
+import { FirebaseAppProvider } from "reactfire";
+import { FirebaseSDKProviders } from "./FirebaseSDKProviders";
 import serviceAccount from "./serviceAccountKey.json";
-import {
-  FirebaseAppProvider,
-  FirestoreProvider,
-  useFirebaseApp,
-} from "reactfire";
-import { ReactNode } from "react";
 
-type IProp = {
-  children: ReactNode;
-};
-
-const FirebaseSDKProviders = ({ children }: IProp) => {
-  const app = useFirebaseApp();
-  const firestore = getFirestore(app);
-
-  return <FirestoreProvider sdk={firestore}>{children}</FirestoreProvider>;
-};
-
-const FirebaseServices = ({ children }: IProp) => {
+const FirebaseServices = ({ children }: IChildren) => {
   return (
     <FirebaseAppProvider firebaseConfig={serviceAccount}>
       <FirebaseSDKProviders>{children}</FirebaseSDKProviders>
@@ -27,4 +11,4 @@ const FirebaseServices = ({ children }: IProp) => {
   );
 };
 
-export { FirebaseServices, FirebaseSDKProviders, serviceAccount };
+export { FirebaseServices };
