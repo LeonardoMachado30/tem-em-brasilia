@@ -1,18 +1,18 @@
+"use client";
 import Image, { StaticImageData } from "next/image";
-import { useFirestoreCollectionData, useFirestore } from "reactfire";
-import { collection, orderBy, query } from "firebase/firestore";
-import { ButtonPrimary } from "../Buttons/ButtonPrimary";
 import logo_dvx from "$/img/logo-dvx.png";
-import { ButtonClose } from "../Buttons/ButtonClose";
 import icon_instagram from "$/img/icons/instagram.png";
 import icon_facebook from "$/img/icons/facebook.png";
-import icon_linkedin from "$/img/icons/linkedin.png";
-import icon_youtube from "$/img/icons/youtube.png";
 import icon_whatsapp from "$/img/icons/whatsapp.png";
 import { BuildingOffice2Icon, MapPinIcon } from "@heroicons/react/24/outline";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Link from "next/dist/client/link";
+import { SearchContext } from "@/app/lib/context/searchContext";
+import { useContext } from "react";
+import { collection, orderBy, query } from "firebase/firestore";
+import { useFirestore, useFirestoreCollectionData } from "reactfire";
+import { FirebaseServices } from "@/app/firebase/FirebaseServices";
 
 type SocialMediasProps = {
   image: StaticImageData;
@@ -26,6 +26,7 @@ function SocialMedias() {
     { image: icon_instagram, alt: "icon instagram", link: "" },
     { image: icon_facebook, alt: "icon facebook", link: "" },
   ];
+
   return (
     <div className="flex gap-2 w-full items-center item-hidden">
       {imageArr.map(({ image, alt }: SocialMediasProps, index) => {
@@ -41,6 +42,7 @@ function SocialMedias() {
 
 function Card() {
   const firestore = useFirestore();
+  // const searchContext = useContext(SearchContext);
   const employersCollection = collection(firestore, "employers");
   const employersQuery = query(employersCollection, orderBy("name", "desc"));
   const { status, data: data } = useFirestoreCollectionData(employersQuery, {
@@ -52,11 +54,11 @@ function Card() {
       {status === "loading" ? (
         <Skeleton count={2} />
       ) : (
-        data.map((employers, index) => (
+        data?.map((employers: any, index: number) => (
           <Link
             href="/"
             key={employers.id}
-            className="flex flex-col relative rounded-md max-w-[420px] w-full shadow bg-white open-info"
+            className="flex flex-col relative rounded-md w-full shadow bg-white open-info"
           >
             <div className="shadow-gray-500 shadow-inner rounded-b-none rounded-t-md rounded-tr-md">
               <Image
@@ -68,7 +70,7 @@ function Card() {
                 className="rounded-b-none rounded-t-md rounded-tr-md"
               />
             </div>
-            <div className="relative flex flex-col px-4 py-2 container-animation bg-white">
+            <div className="relative flex flex-col px-4 py-2 container-animation bg-white rounded-md">
               <div className="flex gap-2">
                 <Image
                   src={logo_dvx}
@@ -107,4 +109,22 @@ function Card() {
     </>
   );
 }
-export { Card };
+
+function ListAllCompanies() {
+  return (
+    <FirebaseServices>
+      <h1 className="text-[#006728] text-4xl text-center font-bold mb-4 mt-20">
+        Empresas recentes
+      </h1>
+      <p className="text-[#75AE8B] text-center">Anuncie sua empresa aqui.</p>
+      <p className="text-[#78ce99] text-center">
+        Maior catalógo de empresas do Distrito Federal.
+      </p>
+      <section className="grid grid-cols-3 max-w-[1200px] mx-auto p-4 gap-4">
+        <Card />
+      </section>
+    </FirebaseServices>
+  );
+}
+
+export { Card, ListAllCompanies };
