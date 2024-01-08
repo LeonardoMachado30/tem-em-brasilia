@@ -116,7 +116,7 @@ function ListAllCompanies() {
       <h1 className="text-[#006728] text-4xl text-center font-bold mb-4 mt-20">
         Empresas recentes
       </h1>
-      <p className="text-[#75AE8B] text-center">Anuncie sua empresa aqui.</p>
+      <p className="text-[#78ce99] text-center">Anuncie sua empresa aqui.</p>
       <p className="text-[#78ce99] text-center">
         Maior catalógo de empresas do Distrito Federal.
       </p>
