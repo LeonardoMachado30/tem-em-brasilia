@@ -3,7 +3,7 @@ import { collection, deleteDoc, doc, getFirestore } from "firebase/firestore";
 import { Employer } from "@/model/EmployerModel";
 import { useContext } from "react";
 import { AlertContext } from "@/app/lib/context/alertContexct";
-import { app } from "@/app/firebase/FirebaseServices";
+import { firebaseApp } from "@/app/firebase/firebaseInitApp";
 
 type DialogProps = {
   handleClose: () => void;
@@ -11,7 +11,7 @@ type DialogProps = {
 };
 
 async function handleDelete(data: Employer, alert: any): Promise<void> {
-  const firestore = getFirestore(app);
+  const firestore = getFirestore(firebaseApp);
   const docRef = collection(firestore, "employers");
   const documentToDelete = doc(docRef, data?.id);
 

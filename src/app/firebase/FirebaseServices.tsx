@@ -1,3 +1,4 @@
+"use client";
 import { IChildren } from "@/model/EmployerModel";
 import { FirebaseAppProvider } from "reactfire";
 import { FirebaseSDKProviders } from "./FirebaseSDKProviders";

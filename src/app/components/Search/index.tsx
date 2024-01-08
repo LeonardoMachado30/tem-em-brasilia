@@ -2,34 +2,29 @@
 import { useFirestore } from "reactfire";
 import { AlertContext } from "@/app/lib/context/alertContexct";
 import { collection } from "firebase/firestore";
-import { useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import search from "$/img/search.svg";
 import Image from "next/image";
 import firebase from "firebase/compat/app";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import bg_brasilia from "$/img/bg-brasilia.png";
+import { SearchContext } from "@/app/lib/context/searchContext";
 function Search() {
   const [search, setSearch] = useState<string>("");
+  const searchContext = useContext(SearchContext);
   // const alert = useContext(AlertContext);
   // const firestore = useFirestore();
 
-  async function SearchFirebase() {
+  async function SearchFirebase(e: FormEvent) {
+    e.preventDefault();
     const data = { search: search };
     if (data.search !== "") {
-      // const dbRef = collection(firestore, "employers");
-      // console.log(dbRef);
-      // var query = firebase.database.ref("employer")
-      // console.log(query)
-      // const snapshot = await query
-      //   .where("name", "==", search)
-      //   .get()
-      //   .then((e) => console.log(e));
-      // setTimeout(() => alert?.setMessage(""), 10000);
+      searchContext?.setSearch(search);
     }
   }
 
   return (
-    <section
+    <form
       className=" w-full h-[836px] bg-norepeat animation-bg"
       style={{ backgroundImage: `url(${bg_brasilia.src})` }}
     >
@@ -53,7 +48,7 @@ function Search() {
           <MagnifyingGlassIcon className="h-6 w-6 text-white  " />
         </button>
       </div>
-    </section>
+    </form>
   );
 }
 
