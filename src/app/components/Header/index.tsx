@@ -19,17 +19,17 @@ function Header() {
         </Link>
         <ul className="text-white flex justify-center items-center gap-4 ">
           <li>
-            <Link href="/cadastrar-empresa0" className="hover:text-[#C7C900]">
+            <Link href="#" className="hover:text-[#C7C900]">
               Cadastrar empresa
             </Link>
           </li>
           <li>
-            <Link href="/sobre-nos" className="hover:text-[#C7C900]">
+            <Link href="#" className="hover:text-[#C7C900]">
               Sobre nos
             </Link>
           </li>
           <li>
-            <Link href="/contatos" className="hover:text-[#C7C900]">
+            <Link href="#" className="hover:text-[#C7C900]">
               Contatos
             </Link>
           </li>

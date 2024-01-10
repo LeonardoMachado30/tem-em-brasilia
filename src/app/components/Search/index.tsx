@@ -9,7 +9,8 @@ import firebase from "firebase/compat/app";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import bg_brasilia from "$/img/bg-brasilia.png";
 import { SearchContext } from "@/app/lib/context/searchContext";
-function Search() {
+
+function SearchBar() {
   const [search, setSearch] = useState<string>("");
   const searchContext = useContext(SearchContext);
   // const alert = useContext(AlertContext);
@@ -52,4 +53,4 @@ function Search() {
   );
 }
 
-export { Search };
+export { SearchBar };
