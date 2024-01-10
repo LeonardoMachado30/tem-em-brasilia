@@ -1,8 +1,9 @@
+import Image from "next/image";
 import { auth } from "@/app/firebase/firebaseInitApp";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/20/solid";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 import { useSigninCheck, useUser } from "reactfire";
-
+import icon_google from "$/img/icons/google.png";
 export function Login() {
   const { data: signInCheckResult } = useSigninCheck();
   const { status, data: user } = useUser();
@@ -40,10 +41,11 @@ export function Login() {
     </div>
   ) : (
     <button
-      className="bg-white px-4 py-2 text-black hover:text-[#339B5B] font-bold transform transition duration-200"
+      className="flex items-center bg-white px-4 py-2 text-black hover:text-[#339B5B] font-bold transform transition duration-200"
       onClick={loginWhitGoogle}
     >
-      Entrar com google
+      <Image src={icon_google} alt="Logo google" width={40} height={40} />
+      Continuar com google
     </button>
   );
 }

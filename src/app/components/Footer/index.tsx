@@ -18,17 +18,17 @@ function Footer() {
           </Link>
           <ul className="flex flex-col justify-center items-center gap-1 text-white">
             <li>
-              <Link href="/cadastrar-empresa0" className="hover:text-[#C7C900]">
+              <Link href="#" className="hover:text-[#C7C900]">
                 Cadastrar empresa
               </Link>
             </li>
             <li>
-              <Link href="/sobre-nos" className="hover:text-[#C7C900]">
+              <Link href="#" className="hover:text-[#C7C900]">
                 Sobre nos
               </Link>
             </li>
             <li>
-              <Link href="/contatos" className="hover:text-[#C7C900]">
+              <Link href="#" className="hover:text-[#C7C900]">
                 Contatos
               </Link>
             </li>

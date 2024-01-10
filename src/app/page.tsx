@@ -1,19 +1,17 @@
-import { Search } from "@/components/Search";
+import { SearchBar } from "@/components/Search";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SearchProvider } from "./lib/context/searchContext";
-import { ListAllCompanies } from "./components/Card";
-import { FirebaseServices } from "./firebase/FirebaseServices";
+import { ListAllCompanies } from "@/components/Card";
 
 export default function Home() {
   return (
     <main>
       <Header />
       <SearchProvider>
-        <Search />
+        <SearchBar />
         <ListAllCompanies />
       </SearchProvider>
-
       <Footer />
     </main>
   );
