@@ -8,11 +8,9 @@ import { BuildingOffice2Icon, MapPinIcon } from "@heroicons/react/24/outline";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Link from "next/dist/client/link";
-import { SearchContext } from "@/app/lib/context/searchContext";
-import { useContext } from "react";
 import { collection, orderBy, query } from "firebase/firestore";
 import { useFirestore, useFirestoreCollectionData } from "reactfire";
-import { FirebaseServices } from "@/app/firebase/FirebaseServices";
+import { Suspense } from "react";
 
 type SocialMediasProps = {
   image: StaticImageData;
@@ -49,14 +47,15 @@ function Card() {
     idField: "id",
   });
 
+  // if (status === "loading")
+  //   return <Skeleton count={2} height={300} width={300} />;
+
   return (
     <>
-      {status === "loading" ? (
-        <Skeleton count={2} />
-      ) : (
-        data?.map((employers: any, index: number) => (
+      <Suspense fallback={<Skeleton count={2} height={300} width={300} />}>
+        {data?.map((employers: any, index: number) => (
           <Link
-            href="/"
+            href="#"
             key={employers.id}
             className="flex flex-col relative rounded-md w-full shadow bg-white open-info"
           >
@@ -65,9 +64,8 @@ function Card() {
                 src={logo_dvx}
                 alt="Logo dvx"
                 width={460}
-                height={160}
-                style={{ maxHeight: "160px" }}
-                className="rounded-b-none rounded-t-md rounded-tr-md"
+                height={50}
+                className="rounded-b-none rounded-t-md rounded-tr-md h-72"
               />
             </div>
             <div className="relative flex flex-col px-4 py-2 container-animation bg-white rounded-md">
@@ -104,15 +102,15 @@ function Card() {
               <SocialMedias />
             </div>
           </Link>
-        ))
-      )}
+        ))}
+      </Suspense>
     </>
   );
 }
 
 function ListAllCompanies() {
   return (
-    <FirebaseServices>
+    <>
       <h1 className="text-[#006728] text-4xl text-center font-bold mb-4 mt-20">
         Empresas recentes
       </h1>
@@ -123,7 +121,7 @@ function ListAllCompanies() {
       <section className="grid grid-cols-3 max-w-[1200px] mx-auto p-4 gap-4">
         <Card />
       </section>
-    </FirebaseServices>
+    </>
   );
 }
 
