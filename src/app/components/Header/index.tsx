@@ -3,13 +3,12 @@ import Image from "next/image";
 import logo from "$/img/logo_alternative.png";
 import Link from "next/link";
 import { Login } from "./Login";
-import { FirebaseServices } from "@/app/firebase/FirebaseServices";
 
 function Header() {
   return (
     <header className="fixed top-0 h-[60px] w-full z-10 bg-[#339B5B]">
       <nav className="flex justify-around items-center mx-auto max-w-[1420px] h-full">
-        <Link href="/">
+        <Link href="#">
           <Image
             src={logo}
             alt="Logo tem em brasilia"
@@ -34,9 +33,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <FirebaseServices>
-              <Login />
-            </FirebaseServices>
+            <Login />
           </li>
         </ul>
       </nav>
