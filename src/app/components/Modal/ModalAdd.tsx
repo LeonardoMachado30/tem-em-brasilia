@@ -44,14 +44,14 @@ function ModalAdd({ handleClose }: ModalAddProp) {
   async function handle(e: any): Promise<void> {
     e.preventDefault();
 
-    await handleAdd(
-      {
-        name: name,
-        email: email,
-        adress: adress,
-      },
-      alert
-    );
+    // await handleAdd(
+    //   {
+    //     name: name,
+    //     email: email,
+    //     adress: adress,
+    //   },
+    //   alert
+    // );
 
     handleClose();
   }
