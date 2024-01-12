@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import BoxWrapp from "../BoxWrapp";
+import { Bars2Icon } from "@heroicons/react/20/solid";
 
 function SearchBarFallback() {
   return <>loading...</>;
@@ -15,7 +17,21 @@ export default function Page({ params }: { params: { slug: string } }) {
         <Suspense fallback={<SearchBarFallback />}>
           <div>Search</div>
         </Suspense>
-        <div>Slug: {params?.slug}</div>
+        <div>Slug: {params?.slug}</div>/
+        <div className="grid grid-cols-2 gap-2">
+          <BoxWrapp
+            icon={<Bars2Icon className="h-6 w-6 text-black" />}
+            title="Decrição"
+          >
+            <p>
+              Empresa especializada em criação de marketing digital, e-comercer,
+              e-learning, chatBots, Inteligência artificial e suas vertentes,
+              além de ser empresa líder do mercado de tecnologias, contamos com
+              mais de 500 apoiadores e empresas parceiras para a consolidação de
+              nosso objetivos.
+            </p>
+          </BoxWrapp>
+        </div>
       </div>
     </>
   );
