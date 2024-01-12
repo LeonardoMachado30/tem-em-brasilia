@@ -5,11 +5,32 @@ type Employer = {
   name: string;
   email: string;
   adress: string;
+  social: Array<string>
+  services: Array<Services>,
+  outherServices: Array<Services>
 };
-export type { Employer }
+
+type Photos = {
+  profile: string;
+}
+
+enum Services {
+  "Atendimento ao cliente",
+  "Social Media",
+  "Banners",
+  "Landing-page",
+  "E-learning",
+  "E-comerce",
+  "Websites",
+}
+
+type Social = {
+  link: string,
+}
+
 
 type IChildren = {
   children: ReactNode;
 }
 
-export type { IChildren }
+export type { IChildren, Employer }

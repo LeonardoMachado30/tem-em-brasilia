@@ -11,8 +11,8 @@ type IBoxWrap = {
 
 export default function BoxWrapp({ title, children, icon }: IBoxWrap) {
   return (
-    <section className="w-full rounded-sm shadow-md bg-white flex flex-col p-5 gap-5">
-      <div className="flex items-center font-bold gap-2">
+    <section className="w-full rounded-sm shadow bg-white h-auto flex flex-col p-5 gap-5">
+      <div className="flex items-center font-black text-lg gap-2">
         {icon}
         {title}
       </div>
