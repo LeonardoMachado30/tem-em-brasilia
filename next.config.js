@@ -8,7 +8,7 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
-  trailingSlash: true,
+  // trailingSlash: true,
 };
 
 module.exports = nextConfig;
