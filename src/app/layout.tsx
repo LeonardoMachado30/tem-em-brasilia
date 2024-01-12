@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "DVX soluções tecnlogicas team",
-      url: "https://nextjs.org",
+      url: "https://tem-em-brasilia.vercel.app/",
     },
   ],
   keywords:

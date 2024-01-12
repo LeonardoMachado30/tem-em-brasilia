@@ -1,16 +1,18 @@
 import Image from "next/image";
-import { auth } from "@/app/firebase/firebaseInitApp";
+import { auth, googleProvider } from "@/app/firebase/firebaseInitApp";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/20/solid";
-import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { signInWithRedirect } from "firebase/auth";
 import { useSigninCheck, useUser } from "reactfire";
 import icon_google from "$/img/icons/google.png";
+import ClipLoader from "react-spinners/ClipLoader";
+
 export function Login() {
   const { data: signInCheckResult } = useSigninCheck();
   const { status, data: user } = useUser();
 
   const loginWhitGoogle = async () => {
     try {
-      const googleProvider = new GoogleAuthProvider();
+      console.log(auth);
       await signInWithRedirect(auth, googleProvider);
     } catch (error) {
       throw new Error(`${error}`);
@@ -26,7 +28,7 @@ export function Login() {
   };
 
   if (status === "loading") {
-    return <span>loading...</span>;
+    return <ClipLoader color="#fff" size={30} />;
   }
 
   return signInCheckResult?.signedIn ? (
@@ -41,7 +43,7 @@ export function Login() {
     </div>
   ) : (
     <button
-      className="flex items-center bg-white px-4 py-2 text-black hover:text-[#339B5B] font-bold transform transition duration-200"
+      className="flex items-center relative px-2 text-black bg-white hover:text-[#339B5B] font-bold transform transition duration-200 rounded"
       onClick={loginWhitGoogle}
     >
       <Image src={icon_google} alt="Logo google" width={40} height={40} />

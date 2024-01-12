@@ -8,7 +8,15 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
-  trailingSlash: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+      },
+    ],
+  },
+  // trailingSlash: true,
 };
 
 module.exports = nextConfig;
