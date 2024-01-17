@@ -1,6 +1,6 @@
 {
   "name": "tem-em-brasilia",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,7 +14,6 @@
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "@react-oauth/google": "^0.12.1",
-    "firebase": "^10.7.1",
     "firebase-frameworks": "^0.6.0",
     "framer-motion": "^10.17.4",
     "js-cookie": "^3.0.1",
@@ -25,11 +24,12 @@
     "react-loading-skeleton": "^3.3.1",
     "react-spinners": "^0.13.8",
     "react-transition-group": "^4.4.5",
-    "reactfire": "^4.2.3",
     "sharp": "^0.33.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "reactfire": "^4.2.3",
+    "firebase": "^10.7.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
