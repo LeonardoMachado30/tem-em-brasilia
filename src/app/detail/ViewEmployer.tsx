@@ -7,26 +7,16 @@ import {
 } from "@heroicons/react/20/solid";
 import BoxWrapp from "./BoxWrapp";
 import Image from "next/image";
-import logo_dvx from "$/img/logo-dvx.png";
 import SocialMedias from "@/components/Card/SocialMedias";
 import {
   StorageProvider,
   SuspenseWithPerf,
-  useFirebaseApp,
   useFirestore,
   useFirestoreCollectionData,
-  useFirestoreDocData,
   useStorage,
   useStorageDownloadURL,
 } from "reactfire";
-import {
-  collection,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, limit, query, where } from "firebase/firestore";
 import ClipLoader from "react-spinners/ClipLoader";
 import { getStorage, ref } from "firebase/storage";
 import Skeleton from "react-loading-skeleton";

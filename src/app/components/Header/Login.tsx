@@ -1,11 +1,11 @@
+"use client";
 import Image from "next/image";
 import { auth, googleProvider } from "@/app/firebase/firebaseInitApp";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/20/solid";
-import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { signInWithRedirect } from "firebase/auth";
 import { useSigninCheck, useUser } from "reactfire";
 import icon_google from "$/img/icons/google.png";
 import ClipLoader from "react-spinners/ClipLoader";
-import { GoogleLogin } from "@react-oauth/google";
 
 export function Login() {
   const { data: signInCheckResult } = useSigninCheck();

@@ -20,9 +20,9 @@ const FirebaseSDKProviders = ({ children }: IChildren) => {
   return (
     <FirestoreProvider sdk={firestoreInstance}>
       <AuthProvider sdk={auth}>
-        <GoogleOAuthProvider clientId="260974977064-fcs596908nd2cjv1k839tpjb5rbdj516.apps.googleusercontent.com">
-          <DatabaseProvider sdk={database}>{children}</DatabaseProvider>
-        </GoogleOAuthProvider>
+        {/* <GoogleOAuthProvider clientId="260974977064-fcs596908nd2cjv1k839tpjb5rbdj516.apps.googleusercontent.com"> */}
+        <DatabaseProvider sdk={database}>{children}</DatabaseProvider>
+        {/* </GoogleOAuthProvider> */}
       </AuthProvider>
     </FirestoreProvider>
   );
