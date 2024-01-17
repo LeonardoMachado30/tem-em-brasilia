@@ -1,7 +1,6 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import logo from "$/img/logo_alternative.png";
-import Link from "next/link";
 import { Login } from "./Login";
 
 function Header() {
@@ -13,22 +12,19 @@ function Header() {
         {/* </Link> */}
         <ul className="text-white flex justify-center items-center gap-4 ">
           <li>
-            <Link
-              href={{ pathname: "/register" }}
-              className="hover:text-[#C7C900]"
-            >
+            <a href="/register" className="hover:text-[#C7C900]">
               Cadastrar empresa
-            </Link>
+            </a>
           </li>
           <li>
-            <Link href="#" className="hover:text-[#C7C900]">
+            <a href="#" className="hover:text-[#C7C900]">
               Sobre nos
-            </Link>
+            </a>
           </li>
           <li>
-            <Link href="#" className="hover:text-[#C7C900]">
+            <a href="#" className="hover:text-[#C7C900]">
               Contatos
-            </Link>
+            </a>
           </li>
           <li>
             <Login />

@@ -5,9 +5,9 @@ const nextConfig = {
   // images: {
   //   unoptimized: true,
   // },
-  experimental: {
-    typedRoutes: true,
-  },
+  // experimental: {
+  //   typedRoutes: true,
+  // },
   images: {
     remotePatterns: [
       {
