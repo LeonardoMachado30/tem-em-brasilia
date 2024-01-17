@@ -2,6 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import icon_instagram from "$/img/icons/instagram.png";
 import icon_facebook from "$/img/icons/facebook.png";
 import icon_whatsapp from "$/img/icons/whatsapp.png";
+import Link from "next/link";
 
 type SocialMediasProps = {
   image: StaticImageData;
@@ -21,9 +22,9 @@ export default function SocialMedias({ isShow }: { isShow: boolean }) {
     <div className={`flex gap-2  items-center ${className}`}>
       {imageArr.map(({ image, alt }: SocialMediasProps, index) => {
         return (
-          <a href="#" key={index}>
+          <Link href={{ pathname: "#" }} key={index}>
             <Image src={image} alt={alt} width={36} height={36} />
-          </a>
+          </Link>
         );
       })}
     </div>
