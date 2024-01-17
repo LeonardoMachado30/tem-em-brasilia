@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
-    "firebase": "^9.23.0",
+    "@react-oauth/google": "^0.12.1",
+    "firebase": "^10.7.1",
     "firebase-frameworks": "^0.6.0",
     "framer-motion": "^10.17.4",
     "js-cookie": "^3.0.1",
@@ -25,7 +26,8 @@
     "react-spinners": "^0.13.8",
     "react-transition-group": "^4.4.5",
     "reactfire": "^4.2.3",
-    "sharp": "^0.33.1"
+    "sharp": "^0.33.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
