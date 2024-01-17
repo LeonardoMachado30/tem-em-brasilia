@@ -33,7 +33,7 @@ function Card() {
   console.log(data);
 
   return (
-    <section className="grid grid-cols-3 max-w-[1200px] mx-auto p-4 gap-4">
+    <section className="grid grid-cols-3 max-w-[1200px] mx-auto mb-20 p-4 gap-4">
       {data?.map((employers: any, index: number) => (
         <Link
           href={`/detail/${employers?.idField}`}
