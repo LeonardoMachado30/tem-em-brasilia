@@ -114,12 +114,12 @@ const FetchImageUpload = ({
         URL.createObjectURL(file)
       );
 
-      setPreviewUrls((prevImages) => prevImages.concat(filesArray));
+      setPreviewUrls((prevImages: any) => prevImages.concat(filesArray));
       Array.from(e.target.files).map(
         (file) => URL.revokeObjectURL(file as any) // avoid memory leak
       );
 
-      setImages((prevImages) => prevImages.concat(Array.from(e?.target.files)));
+      setImages((prevImages: any) => prevImages.concat(e.target.files));
     }
   };
 
@@ -142,7 +142,11 @@ const FetchImageUpload = ({
   );
 };
 
-function ImageRender(handleImageChange: any) {
+function ImageRender({
+  handleImageChange,
+}: {
+  handleImageChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}) {
   const id = useId();
   return (
     <div
