@@ -16,7 +16,7 @@ function Footer() {
               height={60}
             />
           </Link>
-          <ul className="flex flex-col justify-center items-center gap-1 text-white">
+          <ul className="flex flex-col justify-center gap-1 text-white">
             <li>
               <Link href="#" className="hover:text-[#C7C900]">
                 Cadastrar empresa

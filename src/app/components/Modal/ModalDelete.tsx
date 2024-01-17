@@ -41,9 +41,9 @@ function ModalDelete({ handleClose, props }: DialogProps) {
   return (
     <div className="flex items-center justify-center fixed backdrop-blur-sm w-full h-screen top-0 left-0 z-20">
       <div className="flex flex-col items-center justify-center relative bg-white rounded max-w-[400px] mx-auto p-8 shadow">
-        <a onClick={handleClose} className="self-end">
+        <button onClick={handleClose} className="self-end">
           X
-        </a>
+        </button>
         <div className="flex flex-col w-full">
           <p>Você tem certeza que deseja excluir esses dados: </p>
           <div className="flex flex-col gap-2 w-full py-6">

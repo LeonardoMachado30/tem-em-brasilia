@@ -117,3 +117,30 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* 
+.remove-arrow {
+} */
+
+select::-ms-expand {
+  display: none;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.visible-trashing-icon {
+  opacity: 0;
+}
+
+.visible-trashing-container:hover .visible-trashing-icon {
+  transition: opacity 250ms ease-in-out;
+  opacity: 100;
+  backdrop-filter: blur(2px);
+}
