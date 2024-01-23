@@ -1,14 +1,14 @@
 "use client";
+import React, { useState } from "react";
 import { PhotoIcon } from "@heroicons/react/20/solid";
 import { Input, Select, Textarea, FetchImageUpload } from "./input";
-import { StorageProvider, SuspenseWithPerf, useFirestore } from "reactfire";
+import { StorageProvider, SuspenseWithPerf } from "reactfire";
 import Skeleton from "react-loading-skeleton";
 import { getStorage } from "firebase/storage";
 import { firebaseApp } from "../firebase/firebaseInitApp";
 import { FirebaseServices } from "../firebase/FirebaseServices";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import React, { FormEventHandler, ReactNode, useState } from "react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 export default function Page() {
   const [images, setImages] = useState<File[]>([]);
@@ -144,8 +144,8 @@ export default function Page() {
             Cadastrar empresa
           </button>
         </form>
-        <Footer />
       </FirebaseServices>
+      <Footer />
     </>
   );
 }

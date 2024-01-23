@@ -1,4 +1,3 @@
-import { IChildren } from "@/model/EmployerModel";
 import { ReactNode } from "react";
 
 type typeWrap = string | ReactNode;

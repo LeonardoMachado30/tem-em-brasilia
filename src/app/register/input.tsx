@@ -1,12 +1,10 @@
 "use client";
+import { ChangeEvent, Dispatch, SetStateAction, useId, useState } from "react";
 import {
   BarsArrowDownIcon,
   BarsArrowUpIcon,
   PhotoIcon,
 } from "@heroicons/react/20/solid";
-import { ChangeEvent, Dispatch, SetStateAction, useId, useState } from "react";
-import { firebaseApp } from "../firebase/firebaseInitApp";
-import { getStorage, ref } from "firebase/storage";
 import Image from "next/image";
 
 type InputProps = {

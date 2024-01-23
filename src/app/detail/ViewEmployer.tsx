@@ -16,11 +16,12 @@ import {
   useStorage,
   useStorageDownloadURL,
 } from "reactfire";
-import { collection, limit, query, where } from "firebase/firestore";
 import ClipLoader from "react-spinners/ClipLoader";
-import { getStorage, ref } from "firebase/storage";
+
 import Skeleton from "react-loading-skeleton";
 import { firebaseApp } from "../firebase/firebaseInitApp";
+import { collection, limit, query, where } from "firebase/firestore/lite";
+import { getStorage, ref } from "firebase/storage";
 
 type FetchImageProps = {
   storagePath: string;

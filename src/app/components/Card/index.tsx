@@ -5,7 +5,7 @@ import { BuildingOffice2Icon, MapPinIcon } from "@heroicons/react/24/outline";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Link from "next/dist/client/link";
-import { collection, orderBy, query } from "firebase/firestore";
+import { collection, orderBy, query } from "firebase/firestore/lite";
 import { useFirestore, useFirestoreCollectionData } from "reactfire";
 import SocialMedias from "./SocialMedias";
 

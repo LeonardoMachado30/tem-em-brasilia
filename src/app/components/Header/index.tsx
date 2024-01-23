@@ -7,9 +7,7 @@ function Header() {
   return (
     <header className="fixed top-0 h-[60px] w-full z-10 bg-[#339B5B]">
       <nav className="flex justify-around items-center mx-auto max-w-[1420px] h-full">
-        {/* <Link href={{ pathname: "/" }}> */}
         <Image src={logo} alt="Logo tem em brasilia" width={200} height={60} />
-        {/* </Link> */}
         <ul className="text-white flex justify-center items-center gap-4 ">
           <li>
             <a href="/register" className="hover:text-[#C7C900]">
