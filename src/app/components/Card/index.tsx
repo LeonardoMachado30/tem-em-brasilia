@@ -5,7 +5,7 @@ import { BuildingOffice2Icon, MapPinIcon } from "@heroicons/react/24/outline";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Link from "next/dist/client/link";
-import { collection, orderBy, query } from "firebase/firestore/lite";
+import { collection, doc, orderBy, query } from "firebase/firestore";
 import { useFirestore, useFirestoreCollectionData } from "reactfire";
 import SocialMedias from "./SocialMedias";
 
@@ -13,10 +13,11 @@ function Card() {
   const firestore = useFirestore();
   // const searchContext = useContext(SearchContext);
   const employersCollection = collection(firestore, "employers");
-  const employersQuery = query(employersCollection, orderBy("name", "desc"));
+  const employersQuery = query(employersCollection, orderBy("idField", "desc"));
   const { status, data: data } = useFirestoreCollectionData(employersQuery, {
     idField: "id",
   });
+  console.log(data);
 
   if (status === "loading") {
     return (
@@ -34,7 +35,7 @@ function Card() {
 
   return (
     <section className="grid grid-cols-3 max-w-[1200px] mx-auto mb-20 p-4 gap-4">
-      {data?.map((employers: any, index: number) => (
+      {data?.map((employers, index: number) => (
         <Link
           href={`/detail/${employers?.idField}`}
           key={employers.idField}
@@ -53,7 +54,7 @@ function Card() {
             <div className="flex gap-2">
               <Image
                 src={logo_dvx}
-                alt={`Foto de perfil da empresa ${employers.name}`}
+                alt={`Foto de perfil da empresa ${employers.fullName}`}
                 width={100}
                 height={100}
                 className="rounded-full border-4 border-white -mt-8"
@@ -61,21 +62,21 @@ function Card() {
               <div className="flex flex-col">
                 <p
                   className="text-lg font-bold --ellipse"
-                  title={employers.name}
+                  title={employers.fullName}
                 >
-                  {employers.name}
+                  {employers.fullName}
                 </p>
                 <span className="flex items-center gap-1">
                   <BuildingOffice2Icon className="h-5 w-5 text-[#339B5B]" />
                   <p className="text-[#339B5B] font-semibold text-sm">
-                    Restaurante
+                    {employers.category}
                   </p>
                 </span>
 
                 <span className="flex items-center gap-1">
                   <MapPinIcon className="h-5 w-5 text-[#339B5B]" />
                   <p className="text-[#339B5B] font-semibold text-sm">
-                    Q 25 C 15 Gama Leste
+                    {employers.adress}
                   </p>
                 </span>
               </div>

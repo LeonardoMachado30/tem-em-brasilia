@@ -13,6 +13,7 @@ import {
   SuspenseWithPerf,
   useFirestore,
   useFirestoreCollectionData,
+  useFirestoreDocData,
   useStorage,
   useStorageDownloadURL,
 } from "reactfire";
@@ -20,8 +21,16 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import Skeleton from "react-loading-skeleton";
 import { firebaseApp } from "../firebase/firebaseInitApp";
-import { collection, limit, query, where } from "firebase/firestore/lite";
+import {
+  collection,
+  doc,
+  getDoc,
+  limit,
+  query,
+  where,
+} from "firebase/firestore";
 import { getStorage, ref } from "firebase/storage";
+import { DotLoader } from "react-spinners";
 
 type FetchImageProps = {
   storagePath: string;
@@ -40,6 +49,8 @@ const FetchImage = async ({
 }: FetchImageProps) => {
   const storage = useStorage();
 
+  console.log(storagePath);
+
   const { data: imageURL } = await useStorageDownloadURL(
     ref(storage, storagePath)
   );
@@ -50,10 +61,10 @@ const FetchImage = async ({
     return (
       <Skeleton
         count={1}
-        height={width}
-        width={height}
+        height={350}
+        width={900}
         className="!bg-[#339B5B10] "
-        containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4"
+        containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4 h-full"
       />
     );
 
@@ -73,23 +84,9 @@ const FetchImage = async ({
 export default function ViewEmployer({ params }: { params: { id: string } }) {
   const firestore = useFirestore();
   const storage = getStorage(firebaseApp);
-  const employersCollection = collection(firestore, "employers");
-  console.log(params?.id);
-  const employersQuery = query(
-    employersCollection,
-    where("idField", "==", params?.id),
-    limit(1)
-  );
-
-  const { status: status, data: data } = useFirestoreCollectionData(
-    employersQuery,
-    {
-      idField: "id",
-    }
-  );
-
+  const employersRef = doc(useFirestore(), "employers", params.id);
+  const { status, data } = useFirestoreDocData(employersRef);
   console.log(data);
-
   if (status === "loading") {
     return (
       <div className="flex justify-center items-center w-full mx-auto h-screen absolute top-0 left-0">
@@ -97,6 +94,7 @@ export default function ViewEmployer({ params }: { params: { id: string } }) {
       </div>
     );
   }
+  console.log(data);
 
   return (
     <div className="w-full">
@@ -108,14 +106,14 @@ export default function ViewEmployer({ params }: { params: { id: string } }) {
               height={350}
               width={900}
               className="!bg-[#339B5B10] "
-              containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4"
+              containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4 h-screen"
             />
           }
           traceId="storage-root"
         >
           <FetchImage
-            storagePath={data[0]?.storagePath}
-            name={data[0]?.name}
+            storagePath={data.imageBackground}
+            name={data.fullName}
             width={900}
             height={350}
             className="!w-full max-h-[350px]"
@@ -125,25 +123,25 @@ export default function ViewEmployer({ params }: { params: { id: string } }) {
             <div className="flex justify-between items-start w-full p-4">
               <div className="flex items-start gap-2">
                 <FetchImage
-                  storagePath={data[0]?.storagePath}
-                  name={data[0]?.name}
+                  storagePath={data.imageProfile}
+                  name={data.fullName}
                   width={200}
                   height={200}
                   className="w-[200px] h-[200px] rounded-full border-4 border-white -mt-20"
                 />
                 <p className="text-4xl font-bold text-nowrap">
-                  {data[0]?.name}
+                  {data.fullName}
                 </p>
               </div>
 
               <SocialMedias isShow={true} />
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 p-8">
               <BoxWrapp
                 icon={<Bars2Icon className="h-6 w-6 text-black" />}
                 title="Decrição"
               >
-                <p>{data[0]?.description}</p>
+                <p>{data.description}</p>
               </BoxWrapp>
 
               <BoxWrapp
@@ -151,7 +149,7 @@ export default function ViewEmployer({ params }: { params: { id: string } }) {
                 title="Localização"
               >
                 <p>
-                  {data[0]?.adress} - {data[0]?.zip}
+                  {data.adress} - {data.zip}
                 </p>
               </BoxWrapp>
 
@@ -160,15 +158,17 @@ export default function ViewEmployer({ params }: { params: { id: string } }) {
                 title="Galeria"
               >
                 <div className="grid grid-cols-3 gap-1 place-content-center p-1">
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
-                  <div className="w-[200px] h-[150px] bg-[#D9D9D9]"></div>
+                  {data.galery.map((item: any, index: number) => (
+                    <div key={index} className="h-[150px] bg-[#D9D9D9]">
+                      {/* <FetchImage
+                        storagePath={item}
+                        name={data.name}
+                        width={200}
+                        height={200}
+                        className=" h-full"
+                      /> */}
+                    </div>
+                  ))}
                 </div>
               </BoxWrapp>
 
@@ -177,22 +177,14 @@ export default function ViewEmployer({ params }: { params: { id: string } }) {
                   icon={<PhotoIcon className="h-6 w-6 text-black" />}
                   title="Serviços"
                 >
-                  <div className="flex flex-col">
-                    {data[0].services?.map((service: string) => {
-                      return <p key={service}>{service}</p>;
-                    })}
-                  </div>
+                  <div className="flex flex-col">{data[0]?.services}</div>
                 </BoxWrapp>
 
                 <BoxWrapp
                   icon={<PlusCircleIcon className="h-6 w-6 text-black" />}
                   title="O que mais temos"
                 >
-                  <div className="flex flex-col">
-                    {data[0].services?.map((service: string) => {
-                      return <p key={service}>{service}</p>;
-                    })}
-                  </div>
+                  <div className="flex flex-col">{data[0]?.services}</div>
                 </BoxWrapp>
               </div>
             </div>

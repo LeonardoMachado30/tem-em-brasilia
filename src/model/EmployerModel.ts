@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import { HTMLInputTypeAttribute, ReactNode } from "react";
+import { Path, UseFormRegister } from "react-hook-form";
 
-type Employer = {
+export type Employer = {
   id?: string;
   name: string;
   email: string;
@@ -10,11 +11,8 @@ type Employer = {
   outherServices: Array<Services>
 };
 
-type Photos = {
-  profile: string;
-}
 
-enum Services {
+export enum Services {
   "Atendimento ao cliente",
   "Social Media",
   "Banners",
@@ -24,13 +22,47 @@ enum Services {
   "Websites",
 }
 
-type Social = {
-  link: string,
-}
-
-
-type IChildren = {
+export type IChildren = {
   children: ReactNode;
 }
 
-export type { IChildren, Employer }
+export type IFileProps = { Image: File[]; Preview: Blob }
+export type IFile = Array<IFileProps>;
+
+export interface IFormValues {
+  fullName: string;
+  phone: number;
+  cel: number;
+  description: string;
+  zip: string,
+  email: string,
+  idField: string
+  category: string;
+  adress: Array<string>;
+  social: Array<string>,
+  services: Array<Services>;
+  imageProfile: Array<File>;
+  imageBackground: Array<File>;
+  galery: Array<File>;
+}
+
+export type InputProps = {
+  label: Path<IFormValues>;
+  register: UseFormRegister<IFormValues>;
+  required?: boolean;
+  className?: string;
+  value?: string;
+  placeholder?: string;
+  type?: HTMLInputTypeAttribute;
+};
+
+export interface TextAreaProps extends InputProps {
+  maxLength?: number;
+  rows?: number;
+  minLength?: number;
+  cols?: number;
+}
+
+export interface SelectProps extends InputProps {
+  options: Array<string>;
+}

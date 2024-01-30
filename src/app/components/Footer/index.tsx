@@ -8,7 +8,7 @@ function Footer() {
     <footer className="bg-[#339B5B]">
       <div className="max-w-[1120px] mx-auto flex flex-col items-center justify-between px-2 py-6">
         <nav className="flex justify-between items-center w-full">
-          <Link href="#">
+          <Link href="/">
             <Image
               src={logo}
               alt="Logo tem em brasilia"
@@ -18,17 +18,17 @@ function Footer() {
           </Link>
           <ul className="flex flex-col justify-center gap-1 text-white">
             <li>
-              <Link href="#" className="hover:text-[#C7C900]">
+              <Link href="/register" className="hover:text-[#C7C900]">
                 Cadastrar empresa
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-[#C7C900]">
+              <Link href="sobre-nos" className="hover:text-[#C7C900]">
                 Sobre nos
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-[#C7C900]">
+              <Link href="contatos" className="hover:text-[#C7C900]">
                 Contatos
               </Link>
             </li>
