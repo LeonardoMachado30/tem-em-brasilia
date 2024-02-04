@@ -139,7 +139,7 @@ function ImageRender({
   className?: string;
   register: any;
   label: string;
-  disabled: boolean;
+  disabled?: boolean;
 }) {
   const id = useId();
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);

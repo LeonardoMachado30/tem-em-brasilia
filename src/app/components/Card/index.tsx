@@ -1,33 +1,32 @@
 "use client";
+import { useEffect, useState } from "react";
+import { firestore } from "@/app/firebase/firebaseInitApp";
+import { getDocs, collection, DocumentData } from "firebase/firestore/lite";
 import { BuildingOffice2Icon, MapPinIcon } from "@heroicons/react/24/outline";
-import Skeleton from "react-loading-skeleton";
+import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
-import Link from "next/dist/client/link";
-import { collection, orderBy, query } from "firebase/firestore";
-import { useFirestore, useFirestoreCollectionData } from "reactfire";
+import Skeleton from "react-loading-skeleton";
 import SocialMedias from "./SocialMedias";
 import FetchImage from "@/app/util/Image";
-import ClipLoader from "react-spinners/ClipLoader";
 
 function ListAllCompanies() {
-  const firestore = useFirestore();
-  const employersCollection = collection(firestore, "employers");
-  const employersQuery = query(employersCollection, orderBy("idField", "desc"));
-  const { status, data: data } = useFirestoreCollectionData(employersQuery, {
-    idField: "id",
-  });
+  const [data, setData] = useState<Array<DocumentData>>([]);
 
-  if (status === "loading") {
-    return (
-      <Skeleton
-        count={9}
-        height={200}
-        width={300}
-        className="!bg-[#339B5B10] "
-        containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4"
-      />
-    );
-  }
+  useEffect(() => {
+    async function getFirestoreDocs() {
+      const querySnapshot = await getDocs(collection(firestore, "employers"));
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} =>`);
+        console.log(doc.data());
+
+        // localStorage.setItem("data", JSON.stringify(doc.data()));
+
+        setData([doc.data()]);
+      });
+    }
+
+    getFirestoreDocs();
+  }, []);
 
   return (
     <>
@@ -47,9 +46,9 @@ function ListAllCompanies() {
               <Link
                 href={`/detail/${employers?.idField}`}
                 key={employers.idField}
-                className="flex flex-col relative rounded-md w-full shadow bg-white open-info"
+                className="flex flex-col relative rounded-md w-full shadow bg-white open-info transition-opacity opacity-100 ease-in duration-700"
               >
-                <div className="relative shadow-gray-500 shadow-inner rounded-b-none rounded-t-md rounded-tr-md">
+                <div className="relative rounded-b-none rounded-t-md rounded-tr-md h-48 md:h-40">
                   <FetchImage
                     storagePath={employers.imageBackground}
                     name={employers.fullName}
@@ -98,16 +97,13 @@ function ListAllCompanies() {
           </section>
         </>
       ) : (
-        <div className="flex items-center justify-center w-full text-center max-w-3xl mx-auto mt-14 mb-14 text-3xl text-[#339B5B] font-bold">
-          <p>
-            infelizmente não achamos nenhuma empresa no nossos bancos de dados,
-            por favor, entre em contato com os administradores, recarregue a
-            pagina ou cadastre uma vaga{" "}
-            <a href="/register" className="text-[#339B5B] underline">
-              aqui
-            </a>
-          </p>
-        </div>
+        <Skeleton
+          count={9}
+          height={200}
+          width={300}
+          className="!bg-[#339B5B10] "
+          containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4"
+        />
       )}
     </>
   );
