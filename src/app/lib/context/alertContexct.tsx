@@ -24,7 +24,6 @@ function Alert({ children }: { children: ReactNode }) {
       alert.message !== null && alert.message !== "" ? true : false;
 
     if (isAlert) {
-      console.log("remove message");
 
       const id = removeMessage();
 

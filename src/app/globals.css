@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  padding-top: 60px;
   background-color: #e0f0e6b9;
 }
 
@@ -117,18 +118,28 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* 
-.remove-arrow {
-} */
 
 select::-ms-expand {
   display: none;
 }
+
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
   text-overflow: "";
+}
+
+select option {
+  /* background-color: #75ae8b;  */
+  /* color: #006727; */
+  padding: 10px !important;
+  margin: 40px;
+}
+
+select option:hover {
+  background: #75ae8b; /* Cor de fundo */
+  color: #006728; /* Cor do texto */
 }
 
 input[type="file"] {

@@ -1,4 +1,3 @@
-import { IChildren } from "@/model/EmployerModel";
 import { ReactNode } from "react";
 
 type typeWrap = string | ReactNode;
@@ -16,7 +15,7 @@ export default function BoxWrapp({ title, children, icon }: IBoxWrap) {
         {icon}
         {title}
       </div>
-      <div>{children}</div>
+      {children}
     </section>
   );
 }

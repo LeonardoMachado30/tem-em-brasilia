@@ -6,6 +6,7 @@ import { signInWithRedirect } from "firebase/auth";
 import { useSigninCheck, useUser } from "reactfire";
 import icon_google from "$/img/icons/google.png";
 import ClipLoader from "react-spinners/ClipLoader";
+import { GoogleLogin } from "@react-oauth/google";
 
 export function Login() {
   const { data: signInCheckResult } = useSigninCheck();
@@ -13,7 +14,6 @@ export function Login() {
 
   const loginWhitGoogle = async () => {
     try {
-      console.log(auth);
       await signInWithRedirect(auth, googleProvider);
     } catch (error) {
       throw new Error(`${error}`);
@@ -34,7 +34,7 @@ export function Login() {
 
   return (
     <>
-      {/* <GoogleLogin
+      <GoogleLogin
         onSuccess={(credentialResponse) => {
           console.log(credentialResponse);
         }}
@@ -42,7 +42,7 @@ export function Login() {
           console.log("Login Failed");
         }}
         useOneTap
-      /> */}
+      />
       {signInCheckResult?.signedIn ? (
         <div className="flex gap-2 items-center bg-white rounded text-black hover:text-[#339B5B] px-2 py-1">
           <p className="font-bold --ellipse">Bem-vindo {user?.displayName}!</p>
@@ -54,13 +54,15 @@ export function Login() {
           </button>
         </div>
       ) : (
-        <button
-          className="flex items-center relative px-2 text-black bg-white hover:text-[#339B5B] font-bold transform transition duration-200 rounded"
-          onClick={loginWhitGoogle}
-        >
-          <Image src={icon_google} alt="Logo google" width={40} height={40} />
-          Continuar com google
-        </button>
+        !signInCheckResult?.signedIn && (
+          <button
+            className="flex items-center relative px-2 text-black bg-white hover:text-[#339B5B] font-bold transform transition duration-200 rounded"
+            onClick={loginWhitGoogle}
+          >
+            <Image src={icon_google} alt="Logo google" width={40} height={40} />
+            <span className="hidden lg:block">Continuar com google</span>
+          </button>
+        )
       )}
     </>
   );
