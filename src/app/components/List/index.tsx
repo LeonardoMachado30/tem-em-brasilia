@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { ModalDelete } from "../Modal/ModalDelete";
 import { ModalAdd } from "@/components/Modal/ModalAdd";
-import { FirebaseServices } from "@/app/firebase/FirebaseServices";
+// import { FirebaseServices } from "@/app/firebase/FirebaseServices";
 
 function List() {
   const [modalAdd, setModalAdd] = useState<boolean>(false);
@@ -33,9 +33,9 @@ function List() {
           Empresas recentes
         </h1>
         <div className="relative flex flex-wrap justify-center items-center md:justify-start gap-4 mx-auto p-1 w-full">
-          <FirebaseServices>
+          {/* <FirebaseServices>
             <Card />
-          </FirebaseServices>
+          </FirebaseServices> */}
         </div>
       </section>
     </>
