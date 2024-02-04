@@ -8,12 +8,7 @@ import {
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { Path, UseFormRegister, useForm } from "react-hook-form";
-import {
-  InputProps,
-  SelectProps,
-  Services,
-  TextAreaProps,
-} from "@/model/EmployerModel";
+import { InputProps, SelectProps, TextAreaProps } from "@/model/EmployerModel";
 
 const classNameCustom =
   "border-[#75AE8B] border-2 text-[#006728] rounded bg-white placeholder:text-[#75AE8B] placeholder:text-sm h-[40px] w-full focus:border-[#006728] focus:outline-none focus:border-2 focus:transition focus:duration-700";
@@ -29,10 +24,11 @@ function Input({
   return (
     <input
       type={inputProps.type}
-      className={`${classNameCustom} px-4`}
+      className={`${classNameCustom} ${inputProps.className} px-4`}
       {...register(label, { required })}
       placeholder={placeholder}
       value={value}
+      disabled={inputProps.disabled}
     />
   );
 }
@@ -53,6 +49,7 @@ function Textarea({
       // minLength={inputProps.minLength}
       // rows={inputProps.rows}
       // cols={inputProps.cols}
+      disabled={inputProps.disabled}
     >
       {value}
     </textarea>
@@ -135,12 +132,14 @@ function ImageRender({
   register,
   label,
   uniqueImage = false,
+  disabled,
 }: {
   uniqueImage?: boolean;
   setImages: (prevImages: any) => void;
   className?: string;
   register: any;
   label: string;
+  disabled: boolean;
 }) {
   const id = useId();
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
@@ -183,6 +182,7 @@ function ImageRender({
               style={{ display: "none" }}
               className="w-full h-full"
               {...register(label, { onChange: handleImageChange })}
+              disabled={disabled}
             />
 
             {uniqueImage && previewUrls.length === 1 ? (

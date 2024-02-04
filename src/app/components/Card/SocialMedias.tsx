@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import icon_instagram from "$/img/icons/instagram.png";
 import icon_facebook from "$/img/icons/facebook.png";
-import icon_whatsapp from "$/img/icons/whatsapp.png";
+import icon_linkedin from "$/img/icons/linkedin.png";
 import Link from "next/link";
 
 type SocialMediasProps = {
@@ -10,23 +10,62 @@ type SocialMediasProps = {
   link: string;
 };
 
-export default function SocialMedias({ isShow }: { isShow: boolean }) {
+export default function SocialMedias({
+  isShow,
+  socialData,
+}: {
+  isShow: boolean;
+  socialData?: string;
+}) {
   const className = !isShow && "hidden w-full";
-  const imageArr: SocialMediasProps[] = [
-    { image: icon_whatsapp, alt: "icon whatsapp", link: "" },
-    { image: icon_instagram, alt: "icon instagram", link: "" },
-    { image: icon_facebook, alt: "icon facebook", link: "" },
-  ];
 
   return (
     <div className={`flex gap-2  items-center ${className}`}>
-      {imageArr.map(({ image, alt }: SocialMediasProps, index) => {
-        return (
-          <Link href={{ pathname: "#" }} key={index}>
-            <Image src={image} alt={alt} width={36} height={36} />
-          </Link>
-        );
-      })}
+      {socialData &&
+        socialData.split(',').map((item: string, index: number) => {
+          if (item.includes("facebook")) {
+            return (
+              <Link
+                href={{ pathname: `https://${item}` }}
+                key={index}
+                target="_blank"
+              >
+                <Image
+                  src={icon_facebook}
+                  alt={"icon facebook"}
+                  width={36}
+                  height={36}
+                />
+              </Link>
+            );
+          } else if (item.includes("instagram")) {
+            <Link
+              href={{ pathname: `https://${item}` }}
+              key={index}
+              target="_blank"
+            >
+              <Image
+                src={icon_instagram}
+                alt={"icon instagram"}
+                width={36}
+                height={36}
+              />
+            </Link>;
+          } else if (item.includes("linkedin")) {
+            <Link
+              href={{ pathname: `https://${item}` }}
+              key={index}
+              target="_blank"
+            >
+              <Image
+                src={icon_linkedin}
+                alt={"icon linkedin"}
+                width={36}
+                height={36}
+              />
+            </Link>;
+          }
+        })}
     </div>
   );
 }

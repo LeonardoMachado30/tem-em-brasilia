@@ -6,11 +6,10 @@ export type Employer = {
   name: string;
   email: string;
   adress: string;
-  social: Array<string>
-  services: Array<Services>,
-  outherServices: Array<Services>
+  social: Array<string>;
+  services: Array<Services>;
+  outherServices: Array<Services>;
 };
-
 
 export enum Services {
   "Atendimento ao cliente",
@@ -24,9 +23,9 @@ export enum Services {
 
 export type IChildren = {
   children: ReactNode;
-}
+};
 
-export type IFileProps = { Image: File[]; Preview: Blob }
+export type IFileProps = { Image: File[]; Preview: Blob };
 export type IFile = Array<IFileProps>;
 
 export interface IFormValues {
@@ -34,12 +33,13 @@ export interface IFormValues {
   phone: number;
   cel: number;
   description: string;
-  zip: string,
-  email: string,
-  idField: string
+  email: string;
+  idField: string;
   category: string;
-  adress: Array<string>;
-  social: Array<string>,
+  adress: string;
+  adressComplement: string;
+  zip: string;
+  social: Array<string>;
   services: Array<Services>;
   imageProfile: Array<File>;
   imageBackground: Array<File>;
@@ -54,6 +54,7 @@ export type InputProps = {
   value?: string;
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
+  disabled?: boolean
 };
 
 export interface TextAreaProps extends InputProps {

@@ -1,7 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { FirebaseServices } from "./firebase/FirebaseServices";
 
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-758T3SG2V8");
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,7 +24,15 @@ export const metadata: Metadata = {
   robots: "index, follow",
   publisher: "DVX",
   referrer: "origin",
-  abstract: "Catalogo de empresas no distrito federal",
+  // abstract: "Catalogo de empresas no distrito federal",
+  // viewport: "width=device-width, initial-scale=1"
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Also supported by less commonly used
+  // interactiveWidget: 'resizes-visual',
 };
 
 export default function RootLayout({
@@ -28,7 +42,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <FirebaseServices>
+          <Header />
+          {children}
+          <Footer />
+        </FirebaseServices>
+      </body>
     </html>
   );
 }
