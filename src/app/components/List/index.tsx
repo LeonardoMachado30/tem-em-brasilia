@@ -3,7 +3,6 @@ import { useState } from "react";
 import { ModalDelete } from "../Modal/ModalDelete";
 import { ModalAdd } from "@/components/Modal/ModalAdd";
 import { FirebaseServices } from "@/app/firebase/FirebaseServices";
-import { Card } from "../Card";
 
 function List() {
   const [modalAdd, setModalAdd] = useState<boolean>(false);
