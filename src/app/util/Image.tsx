@@ -1,50 +1,86 @@
-
 "use client";
 import Image from "next/image";
-import {
-    useStorage,
-    useStorageDownloadURL,
-} from "reactfire";
 import ClipLoader from "react-spinners/ClipLoader";
-import { ref } from "firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
+import { useEffect, useState } from "react";
+import { storageInit } from "../firebase/firebaseInitApp";
 
 type FetchImageProps = {
-    storagePath: string;
-    name: string;
-    className: string;
-    width: number;
-    height: number;
+  storagePath: string;
+  name: string;
+  className?: string;
+  width: number;
+  height: number;
+};
+
+type Storage = {
+  image: string | null;
+  error: boolean;
 };
 
 const FetchImage = ({
-    storagePath,
-    name,
-    className,
-    width,
-    height,
+  storagePath,
+  name,
+  className,
+  width,
+  height,
 }: FetchImageProps) => {
-    const storage = useStorage();
+  const [storage, setStorage] = useState<Storage>({
+    image: null,
+    error: false,
+  });
+  const refStore = ref(storageInit, storagePath);
 
-    const { data: imageURL } = useStorageDownloadURL(ref(storage, storagePath));
+  useEffect(() => {
+    async function getStorageUnique() {
+      await getDownloadURL(refStore)
+        .then((image) => {
+          console.log(image);
+          setStorage(() => ({
+            image: image,
+            error: true,
+          }));
+        })
+        .catch((error) => {
+          let message = "";
+          switch (error.code) {
+            case "storage/object-not-found":
+              message = "storage/object-not-found";
+              break;
+            case "storage/unauthorized":
+              message = "storage/unauthorized";
+              break;
+            case "storage/canceled":
+              message = "storage/canceled";
+              break;
+            case "storage/unknown":
+              message = "storage/unknown";
+              break;
+          }
+          console.log(message);
+          setStorage(() => ({
+            image: null,
+            error: false,
+          }));
+        });
+    }
 
-    if (typeof imageURL === "undefined" || typeof imageURL === null)
-        return (
-            <div className="flex justify-center items-center w-full mx-auto h-screen absolute top-0 left-0">
-                <ClipLoader color="#000" size={30} />
-            </div>
-        );
+    getStorageUnique();
+  }, [refStore]);
 
-    return (
-        imageURL && (
-            <Image
-                src={imageURL}
-                alt={`imagem de fundo da empresa ${name}`}
-                width={width}
-                height={height}
-                className={className}
-            />
-        )
-    );
+  return storage.image !== null ? (
+    <Image
+      src={storage.image}
+      alt={`imagem de fundo da empresa ${name}`}
+      width={width}
+      height={height}
+      className={className}
+    />
+  ) : (
+    <div className="flex justify-center items-center w-full h-full">
+      <ClipLoader color="#000" size={30} />
+    </div>
+  );
 };
 
 export default FetchImage;

@@ -43,11 +43,11 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <FirebaseServices>
-          <Header />
-          {children}
-          <Footer />
-        </FirebaseServices>
+        {/* <FirebaseServices> */}
+        <Header />
+        {children}
+        <Footer />
+        {/* </FirebaseServices> */}
         <Analytics />
       </body>
     </html>

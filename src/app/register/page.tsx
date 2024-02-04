@@ -1,6 +1,5 @@
-"use client";
+// "use client";
 import React, { ReactNode, useState } from "react";
-import { PhotoIcon } from "@heroicons/react/20/solid";
 import {
   Input,
   Select,
@@ -8,37 +7,19 @@ import {
   FetchImageUpload,
   FetchGaleryUpload,
 } from "./input";
-import { StorageProvider, SuspenseWithPerf, useFirestore } from "reactfire";
-import Skeleton from "react-loading-skeleton";
-import {
-  UploadTask,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
-import { firebaseApp } from "../firebase/firebaseInitApp";
-import { FirebaseServices } from "../firebase/FirebaseServices";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { ref, uploadBytesResumable } from "firebase/storage";
+import { firestore, storageInit } from "../firebase/firebaseInitApp";
 import Success from "@/components/Modal/Success";
 import { IFile, IFormValues, Services } from "@/model/EmployerModel";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore/lite";
 import ReCAPTCHA from "react-google-recaptcha";
 import { createRef } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Page() {
-  return (
-    <>
-      <FirebaseServices>
-        <Header />
-        <Form />
-      </FirebaseServices>
-      <Footer />
-    </>
-  );
+  return <Form />;
 }
 
 function Form() {
@@ -51,12 +32,10 @@ function Form() {
     register,
     handleSubmit,
     formState: { errors },
-    control,
   } = useForm<IFormValues>();
 
-  const storage = getStorage(firebaseApp);
   const idField = uuidv4();
-  const firestore = useFirestore();
+  // const firestore = useFirestore();
   const options: Array<string> = Object.keys(Services).filter(
     (key: any) => !isNaN(Number(Services[key]))
   );
@@ -81,16 +60,19 @@ function Form() {
         });
     };
 
-    const profileRef = ref(storage, imageStorage.imageProfile);
+    const profileRef = ref(storageInit, imageStorage.imageProfile);
 
-    const backgroundRef = ref(storage, imageStorage.imageBackground);
+    const backgroundRef = ref(storageInit, imageStorage.imageBackground);
 
     await uploadFiles(profileRef, data.imageProfile[0]);
 
     await uploadFiles(backgroundRef, data.imageProfile[0]);
 
     const galeryArr = Array.from(data.galery).map((item: any) => {
-      const galeryRef = ref(storage, `/galery/${item.name}-${data.idField}`);
+      const galeryRef = ref(
+        storageInit,
+        `/galery/${item.name}-${data.idField}`
+      );
       uploadFiles(galeryRef, item);
       return `/galery/${item.name}`;
     });
@@ -122,214 +104,174 @@ function Form() {
         <h1 className="text-3xl sm:text-4xl text-[#006728] font-bold">
           Cadastro de empresa
         </h1>
-        <StorageProvider sdk={storage}>
-          <div className="flex flex-col w-full">
-            <div className="flex sm:flex-row flex-col items-center justify-around">
-              <div className="flex flex-col items-center gap-2 w-full">
-                <p className="text-[#006728] font-bold">foto de perfil</p>
+        <div className="flex flex-col w-full">
+          <div className="flex sm:flex-row flex-col items-center justify-around">
+            <div className="flex flex-col items-center gap-2 w-full">
+              <p className="text-[#006728] font-bold">foto de perfil</p>
 
-                <SuspenseWithPerf
-                  fallback={
-                    <Skeleton
-                      count={1}
-                      height={350}
-                      width={900}
-                      className="!bg-[#339B5B10] "
-                      containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4"
-                    />
-                  }
-                  traceId="storage-root"
-                >
-                  <FetchImageUpload
-                    label="imageProfile"
-                    setImages={setImages}
-                    uniqueImage={true}
-                    register={register}
-                  />
-                </SuspenseWithPerf>
-              </div>
-              <div className="flex flex-col items-center gap-2 w-full">
-                <p className="text-[#006728] font-bold">foto da capa</p>
-                <SuspenseWithPerf
-                  fallback={
-                    <Skeleton
-                      count={1}
-                      height={350}
-                      width={900}
-                      className="!bg-[#339B5B10] "
-                      containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4"
-                    />
-                  }
-                  traceId="storage-root"
-                >
-                  <FetchImageUpload
-                    label="imageBackground"
-                    register={register}
-                    setImages={setImages}
-                    uniqueImage={true}
-                  />
-                </SuspenseWithPerf>
-              </div>
+              <FetchImageUpload
+                label="imageProfile"
+                setImages={setImages}
+                uniqueImage={true}
+                register={register}
+              />
+            </div>
+            <div className="flex flex-col items-center gap-2 w-full">
+              <p className="text-[#006728] font-bold">foto da capa</p>
+
+              <FetchImageUpload
+                label="imageBackground"
+                register={register}
+                setImages={setImages}
+                uniqueImage={true}
+              />
             </div>
           </div>
+        </div>
 
-          <ContainerInput
-            title="Informações básicas"
-            // classNameChildren="flex flex-col items-center justify-between"
-          >
-            <div className="flex sm:flex-row flex-col items-center justify-between gap-5">
-              <Input
-                type="hidden"
-                value={idField}
-                label="idField"
-                register={register}
-                disabled={disabled}
-                className="disabled:bg-[#5bc483] disabled:cursor-wait"
-              />
-              <Input
-                label="fullName"
-                register={register}
-                type="text"
-                placeholder="Nome da empresa"
-                required={true}
-                disabled={disabled}
-                className="disabled:bg-[#5bc483] disabled:cursor-wait"
-              />
-              {errors?.fullName && <p>{errors.fullName.message}</p>}
-              <Input
-                label="email"
-                register={register}
-                type="text"
-                placeholder="Email"
-                required={true}
-                disabled={disabled}
-                className="disabled:bg-[#5bc483] disabled:cursor-wait"
-              />
-              <Input
-                label="phone"
-                register={register}
-                type="text"
-                placeholder="Telefone"
-                required={true}
-                disabled={disabled}
-                className="disabled:bg-[#5bc483] disabled:cursor-wait"
-              />
-              <Input
-                label="cel"
-                register={register}
-                type="text"
-                placeholder="Celular / WhatsApp"
-                required={true}
-                disabled={disabled}
-                className="disabled:bg-[#5bc483] disabled:cursor-wait"
-              />
-            </div>
-            <div className="flex items-center justify-between gap-5">
-              <Textarea
-                label="description"
-                register={register}
-                placeholder="Descrição"
-                maxLength={250}
-                minLength={30}
-                rows={5}
-                className="h-[90px] disabled:bg-[#5bc483] disabled:cursor-wait"
-                required={true}
-                disabled={disabled}
-              />
-            </div>
-          </ContainerInput>
-
-          <ContainerInput
-            title="Fotos da galeria"
-            classNameChildren="flex sm:flex-row flex-wrap "
-          >
-            <SuspenseWithPerf
-              fallback={
-                <Skeleton
-                  count={1}
-                  height={350}
-                  width={900}
-                  className="!bg-[#339B5B10] "
-                  containerClassName="w-full flex flex-wrap max-w-[1200px] gap-4 justify-center items-center mx-auto p-4"
-                />
-              }
-              traceId="storage-root"
-            >
-              <FetchGaleryUpload
-                setImages={setImages}
-                label="galery"
-                register={register}
-              />
-            </SuspenseWithPerf>
-          </ContainerInput>
-
-          <ContainerInput
-            title="Localização"
-            classNameChildren="flex items-center justify-between"
-          >
+        <ContainerInput
+          title="Informações básicas"
+          // classNameChildren="flex flex-col items-center justify-between"
+        >
+          <div className="flex sm:flex-row flex-col items-center justify-between gap-5">
             <Input
-              label="adress"
+              type="hidden"
+              value={idField}
+              label="idField"
+              register={register}
+              disabled={disabled}
+              className="disabled:bg-[#5bc483] disabled:cursor-wait"
+            />
+            <Input
+              label="fullName"
               register={register}
               type="text"
-              placeholder="Endereço"
+              placeholder="Nome da empresa"
+              required={true}
+              disabled={disabled}
+              className="disabled:bg-[#5bc483] disabled:cursor-wait"
+            />
+            {errors?.fullName && <p>{errors.fullName.message}</p>}
+            <Input
+              label="email"
+              register={register}
+              type="text"
+              placeholder="Email"
               required={true}
               disabled={disabled}
               className="disabled:bg-[#5bc483] disabled:cursor-wait"
             />
             <Input
-              label="adressComplement"
+              label="phone"
               register={register}
               type="text"
-              placeholder="Complemento"
+              placeholder="Telefone"
+              required={true}
               disabled={disabled}
               className="disabled:bg-[#5bc483] disabled:cursor-wait"
             />
             <Input
-              label="zip"
+              label="cel"
               register={register}
               type="text"
-              placeholder="CEP"
+              placeholder="Celular / WhatsApp"
               required={true}
-              className="max-w-[140px] disabled:bg-[#5bc483] disabled:cursor-wait"
               disabled={disabled}
-            />
-          </ContainerInput>
-
-          <ContainerInput
-            title="Sobre sua empresa"
-            classNameChildren="flex items-center"
-          >
-            <Select
-              options={options}
-              className="max-w-[420px] disabled:bg-[#5bc483] disabled:cursor-wait"
-              label="category"
-              register={register}
-              disabled={disabled}
-            />
-            <Input
-              label="services"
-              register={register}
-              type="text"
-              placeholder="Serviços, Exemplo: Atendente, Wifi..."
-              required={true}
-              className="max-w-[350px] disabled:bg-[#5bc483] disabled:cursor-wait"
-              disabled={disabled}
-            />
-          </ContainerInput>
-
-          <ContainerInput
-            title="Redes sociais"
-            classNameChildren="grid grid-cols-1 sm:grid-cols-3"
-          >
-            <Input
               className="disabled:bg-[#5bc483] disabled:cursor-wait"
-              label="social"
+            />
+          </div>
+          <div className="flex items-center justify-between gap-5">
+            <Textarea
+              label="description"
               register={register}
-              placeholder="cole a url das suas redes sociais"
+              placeholder="Descrição"
+              maxLength={250}
+              minLength={30}
+              rows={5}
+              className="h-[90px] disabled:bg-[#5bc483] disabled:cursor-wait"
+              required={true}
               disabled={disabled}
             />
-          </ContainerInput>
-        </StorageProvider>
+          </div>
+        </ContainerInput>
+
+        <ContainerInput
+          title="Fotos da galeria"
+          classNameChildren="flex sm:flex-row flex-wrap "
+        >
+          <FetchGaleryUpload
+            setImages={setImages}
+            label="galery"
+            register={register}
+          />
+        </ContainerInput>
+
+        <ContainerInput
+          title="Localização"
+          classNameChildren="flex items-center justify-between"
+        >
+          <Input
+            label="adress"
+            register={register}
+            type="text"
+            placeholder="Endereço"
+            required={true}
+            disabled={disabled}
+            className="disabled:bg-[#5bc483] disabled:cursor-wait"
+          />
+          <Input
+            label="adressComplement"
+            register={register}
+            type="text"
+            placeholder="Complemento"
+            disabled={disabled}
+            className="disabled:bg-[#5bc483] disabled:cursor-wait"
+          />
+          <Input
+            label="zip"
+            register={register}
+            type="text"
+            placeholder="CEP"
+            required={true}
+            className="max-w-[140px] disabled:bg-[#5bc483] disabled:cursor-wait"
+            disabled={disabled}
+          />
+        </ContainerInput>
+
+        <ContainerInput
+          title="Sobre sua empresa"
+          classNameChildren="flex items-center"
+        >
+          <Select
+            options={options}
+            className="max-w-[420px] disabled:bg-[#5bc483] disabled:cursor-wait"
+            label="category"
+            register={register}
+            disabled={disabled}
+          />
+          <Input
+            label="services"
+            register={register}
+            type="text"
+            placeholder="Serviços, Exemplo: Atendente, Wifi..."
+            required={true}
+            className="max-w-[350px] disabled:bg-[#5bc483] disabled:cursor-wait"
+            disabled={disabled}
+          />
+        </ContainerInput>
+
+        <ContainerInput
+          title="Redes sociais"
+          classNameChildren="grid grid-cols-1 sm:grid-cols-3"
+        >
+          <Input
+            className="disabled:bg-[#5bc483] disabled:cursor-wait"
+            label="social"
+            register={register}
+            placeholder="cole a url das suas redes sociais"
+            disabled={disabled}
+          />
+        </ContainerInput>
 
         <ReCAPTCHA
           sitekey="6LftDGUpAAAAAINmS_V1yyAZWU-9MA3as0oudrmO"
