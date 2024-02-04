@@ -4,7 +4,7 @@ import "./globals.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { FirebaseServices } from "./firebase/FirebaseServices";
-
+import { Analytics } from "@vercel/analytics/react";
 import ReactGA from "react-ga4";
 
 ReactGA.initialize("G-758T3SG2V8");
@@ -48,6 +48,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </FirebaseServices>
+        <Analytics />
       </body>
     </html>
   );
