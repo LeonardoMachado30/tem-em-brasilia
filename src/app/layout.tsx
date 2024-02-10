@@ -3,10 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { FirebaseServices } from "./firebase/FirebaseServices";
 import { Analytics } from "@vercel/analytics/react";
 import ReactGA from "react-ga4";
-
+import { GoogleAnalytics } from "@next/third-parties/google";
 ReactGA.initialize("G-758T3SG2V8");
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +47,7 @@ export default function RootLayout({
         {children}
         <Footer />
         {/* </FirebaseServices> */}
+        <GoogleAnalytics gaId="G-758T3SG2V8" />
         <Analytics />
       </body>
     </html>
