@@ -6,6 +6,7 @@ import { Footer } from "./components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import ReactGA from "react-ga4";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 ReactGA.initialize("G-758T3SG2V8");
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +49,7 @@ export default function RootLayout({
         <Footer />
         {/* </FirebaseServices> */}
         <GoogleAnalytics gaId="G-758T3SG2V8" />
+        <SpeedInsights />
         <Analytics />
       </body>
     </html>
