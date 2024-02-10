@@ -7,6 +7,8 @@ import { Analytics } from "@vercel/analytics/react";
 import ReactGA from "react-ga4";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import fivicons from "$/img/Group 211.png";
+
 ReactGA.initialize("G-758T3SG2V8");
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +26,7 @@ export const metadata: Metadata = {
   robots: "index, follow",
   publisher: "DVX",
   referrer: "origin",
+  icons: fivicons.src,
   // abstract: "Catalogo de empresas no distrito federal",
   // viewport: "width=device-width, initial-scale=1"
 };
