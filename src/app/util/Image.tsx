@@ -66,7 +66,7 @@ const FetchImage = ({
     }
 
     getStorageUnique();
-  }, [refStore]);
+  }, []);
 
   return storage.image !== null ? (
     <Image

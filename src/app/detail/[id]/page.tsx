@@ -60,9 +60,11 @@ export default function Page({ params }: { params: { id: string } }) {
             <p className="text-4xl font-bold text-nowrap">{data.fullName}</p>
           </div>
 
-          {data.social && (
-            <SocialMedias isShow={true} socialData={data.social} />
-          )}
+          <div className="relative">
+            {data.social.length > 0 && (
+              <SocialMedias socialData={data.social} />
+            )}
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-2 p-8">
           <BoxWrapp

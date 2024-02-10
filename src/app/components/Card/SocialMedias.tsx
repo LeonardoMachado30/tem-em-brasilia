@@ -1,28 +1,14 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import icon_instagram from "$/img/icons/instagram.png";
 import icon_facebook from "$/img/icons/facebook.png";
 import icon_linkedin from "$/img/icons/linkedin.png";
 import Link from "next/link";
 
-type SocialMediasProps = {
-  image: StaticImageData;
-  alt: string;
-  link: string;
-};
-
-export default function SocialMedias({
-  isShow,
-  socialData,
-}: {
-  isShow: boolean;
-  socialData?: string;
-}) {
-  const className = !isShow && "hidden w-full";
-
+export default function SocialMedias({ socialData }: { socialData?: [] }) {
   return (
-    <div className={`flex gap-2  items-center ${className}`}>
+    <div className={`flex gap-2 items-center item-hidden`}>
       {socialData &&
-        socialData.split(',').map((item: string, index: number) => {
+        socialData.map((item: string, index: number) => {
           if (item.includes("facebook")) {
             return (
               <Link
