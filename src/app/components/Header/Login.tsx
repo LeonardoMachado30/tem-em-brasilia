@@ -4,26 +4,35 @@ import { auth, googleProvider } from "@/app/firebase/firebaseInitApp";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/20/solid";
 import { User, onAuthStateChanged, signInWithRedirect } from "firebase/auth";
 import icon_google from "$/img/icons/google.png";
-// import ClipLoader from "react-spinners/ClipLoader";
-// import { GoogleLogin } from "@react-oauth/google";
 import { useEffect, useState } from "react";
 
 export function Login() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user: any) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        setUser(user);
-        // ...
-      } else {
-        // User is signed out
-        // ...
+    const unsibscribe = onAuthStateChanged(
+      auth,
+      (user: any) => {
+        console.log(user);
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/auth.user
+          const uid = user.uid;
+          setUser(user);
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      },
+      (error) => {
+        console.log(error);
       }
-    });
+    );
+
+    () => {
+      unsibscribe();
+    };
   }, []);
 
   const loginWhitGoogle = async () => {
