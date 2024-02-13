@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "DVX soluções tecnlogicas team",
-      url: "https://tem-em-brasilia.vercel.app/",
+      url: "https://www.temembrasilia.com.br",
     },
   ],
   keywords:
@@ -46,11 +46,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        {/* <FirebaseServices> */}
         <Header />
         {children}
         <Footer />
-        {/* </FirebaseServices> */}
         <GoogleAnalytics gaId="G-758T3SG2V8" />
         <SpeedInsights />
         <Analytics />

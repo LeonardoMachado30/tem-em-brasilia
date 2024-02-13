@@ -11,12 +11,13 @@ const googleProvider = new GoogleAuthProvider();
 const firestore = getFirestore(firebaseApp);
 const storageInit = getStorage(firebaseApp);
 
+
+
+
 const appCheck = initializeAppCheck(firebaseApp, {
     provider: new ReCaptchaV3Provider('6Lc5BWUpAAAAAMXSow9T8oPwxcRQfjoONMXlUbG5'),
-
-    // Optional argument. If true, the SDK automatically refreshes App Check
-    // tokens as needed.
     isTokenAutoRefreshEnabled: true
 });
+self.FIREBASE_APPCHECK_DEBUG_TOKEN = process.env.APP_CHECK_DEBUG_TOKEN_FROM_CI;
 
 export { firebaseApp, auth, googleProvider, firestore, storageInit }
