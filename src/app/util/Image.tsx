@@ -1,9 +1,8 @@
 "use client";
 import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
-import { getDownloadURL, ref } from "firebase/storage";
-import { useEffect, useState } from "react";
-import { storageInit } from "../firebase/firebaseInitApp";
+import useStorage from "../firebase/hooks/Storage";
+import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 
 type FetchImageProps = {
   storagePath: string;
@@ -13,11 +12,6 @@ type FetchImageProps = {
   height: number;
 };
 
-type Storage = {
-  image: string | null;
-  error: boolean;
-};
-
 const FetchImage = ({
   storagePath,
   name,
@@ -25,52 +19,18 @@ const FetchImage = ({
   width,
   height,
 }: FetchImageProps) => {
-  const [storage, setStorage] = useState<Storage>({
-    image: null,
-    error: false,
-  });
-  const refStore = ref(storageInit, storagePath);
+  const { storage, error } = useStorage(storagePath);
 
-  useEffect(() => {
-    async function getStorageUnique() {
-      await getDownloadURL(refStore)
-        .then((image) => {
-          console.log(image);
-          setStorage(() => ({
-            image: image,
-            error: true,
-          }));
-        })
-        .catch((error) => {
-          let message = "";
-          switch (error.code) {
-            case "storage/object-not-found":
-              message = "storage/object-not-found";
-              break;
-            case "storage/unauthorized":
-              message = "storage/unauthorized";
-              break;
-            case "storage/canceled":
-              message = "storage/canceled";
-              break;
-            case "storage/unknown":
-              message = "storage/unknown";
-              break;
-          }
-          console.log(message);
-          setStorage(() => ({
-            image: null,
-            error: false,
-          }));
-        });
-    }
+  if (error !== null)
+    return (
+      <div className="flex justify-center items-center w-full h-full">
+        <ExclamationCircleIcon className="h-6 w-6 text-red-500" />
+      </div>
+    );
 
-    getStorageUnique();
-  }, []);
-
-  return storage.image !== null ? (
+  return storage ? (
     <Image
-      src={storage.image}
+      src={storage}
       alt={`imagem de fundo da empresa ${name}`}
       width={width}
       height={height}
@@ -78,7 +38,7 @@ const FetchImage = ({
     />
   ) : (
     <div className="flex justify-center items-center w-full h-full">
-      <ClipLoader color="#000" size={30} />
+      <ClipLoader color="#000" size={30} className={className} />
     </div>
   );
 };

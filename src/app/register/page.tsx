@@ -53,7 +53,7 @@ function Form() {
 
     const uploadFiles = async (fileRef: any, _data: any): Promise<any> => {
       return await uploadBytesResumable(fileRef, _data)
-        .then(() => true)
+        .then((data) => data)
         .catch((error) => {
           console.log(error);
           return error;
