@@ -14,6 +14,7 @@ import {
   where,
   getFirestore,
   DocumentData,
+  getDocs,
 } from "firebase/firestore";
 
 function Cards() {
@@ -72,7 +73,7 @@ function Cards() {
                     social.length > 0 && "open-info"
                   }`}
                 >
-                  <div className="relative rounded-b-none rounded-t-md rounded-tr-md h-48 md:h-40">
+                  <div className="relative rounded-b-none rounded-t-md rounded-tr-md h-48 md:h-40 bg-gray-300">
                     <FetchImage
                       storagePath={employers.imageBackground}
                       name={employers.fullName}
@@ -82,7 +83,7 @@ function Cards() {
                     />
                   </div>
                   <div className="relative flex flex-col px-4 py-2 container-animation bg-white rounded-md">
-                    <div className="relative flex gap-2">
+                    <div className="relative flex gap-2 ">
                       <FetchImage
                         storagePath={employers.imageProfile}
                         name={employers.fullName}
