@@ -1,11 +1,13 @@
 "use client";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
-import bg_brasilia from "$/img/bg-brasilia.png";
 import { SearchContext } from "@/app/lib/context/searchContext";
+import { blob } from "stream/consumers";
+import convertData64 from "@/app/util/ConvertBase64";
 
 function SearchBar() {
   const [search, setSearch] = useState<string>("");
+  const [background, setBackground] = useState<string>("");
   const searchContext = useContext(SearchContext);
   // const alert = useContext(AlertContext);
   // const firestore = useFirestore();
@@ -18,18 +20,24 @@ function SearchBar() {
     }
   }
 
+  useEffect(() => {
+    const bgImage = localStorage.getItem("background");
+
+    if (bgImage) {
+      setBackground(bgImage);
+    } else {
+      convertData64("/img/bg-brasilia-min.jpg").then((dataUrl) => {
+        localStorage.setItem("background", JSON.stringify(dataUrl));
+        setBackground(JSON.stringify(dataUrl));
+      });
+    }
+  }, []);
+
   return (
     <form
       className="w-full h-[400px] bg-norepeat animation-bg bg-[1200px]"
-      style={{ backgroundImage: `url(${bg_brasilia.src})` }}
+      style={{ backgroundImage: `url(${background})` }}
     >
-      {/* <Image
-        src={bg_brasilia.src}
-        alt="plano de fundo da pesquisa"
-        width={600}
-        height={400}
-        className="!w-full  absolute top-0 left-0 -z-10 animation-bg"
-      /> */}
       <div className="max-w-[728px] w-full mx-auto h-full flex justify-center items-center">
         <div className="relative w-full h-[48px]">
           <input
