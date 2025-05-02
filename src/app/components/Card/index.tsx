@@ -1,6 +1,5 @@
 "use client";
 import {BuildingOffice2Icon, MapPinIcon} from "@heroicons/react/24/outline";
-import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import RedeSocial from "./RedeSocial";
@@ -16,11 +15,13 @@ import {
     DocumentData,
     getDocs,
 } from "firebase/firestore";
+import {useRouter} from "next/navigation";
 
 function Cards() {
     const [data, setData] = useState<DocumentData[]>([]);
     const [focusCard, setfocusCard] = useState<boolean>(false);
     const firestore = getFirestore(firebaseApp);
+    const router = useRouter();
 
     const callback = useCallback(
         function getFirestoreDocs() {
@@ -29,21 +30,18 @@ function Cards() {
                 where("isActive", "==", true)
             );
 
-            const unsuscribe = onSnapshot(q, (querySnapshot) => {
+            return onSnapshot(q, (querySnapshot) => {
                 querySnapshot.docChanges().forEach((doc) => {
                     setData((prev) => [...prev, doc.doc.data()]);
                 });
             });
-            return () => {
-                unsuscribe();
-            };
         },
         [firestore]
     );
 
     useEffect(() => {
-        const unsibscrbe = callback();
-        () => unsibscrbe();
+        const unsibscribe = callback();
+        () => unsibscribe();
     }, [callback]);
 
     return (
@@ -64,70 +62,69 @@ function Cards() {
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-auto mb-20 p-4 gap-4 items-center">
                         {data?.map((employers: any, index: number) => {
                             const social = employers.social.split(",");
-                            console.log(social);
                             return (
-                                <Link
-                                    href={`/detail/${employers?.idField}`}
+                                <div
                                     key={employers.idField}
+                                    onClick={() => router.push(`/detail/${employers?.idField}`)}
                                     onMouseEnter={() => setfocusCard(!focusCard)}
                                     onMouseLeave={() => setfocusCard(!focusCard)}
-                                    className={`flex flex-col relative rounded-md w-full shadow bg-white  transition-opacity opacity-100 ease-in duration-700 ${
-                                        social.length > 0 && "open-info"
-                                    }`}
+                                    className={`cursor-pointer flex flex-col relative rounded-md w-full shadow bg-white  transition-opacity opacity-100 ease-in duration-700 ${social.length > 0 && "open-info"}`}
                                 >
-                                    <div
-                                        className="relative rounded-b-none rounded-t-md rounded-tr-md h-48 md:h-40 bg-gray-300">
-                                        <FetchImage
-                                            storagePath={employers.imageBackground}
-                                            name={employers.fullName}
-                                            width={460}
-                                            height={50}
-                                            className="rounded-b-none rounded-t-md rounded-tr-md h-48 md:h-40 w-full"
-                                        />
-                                    </div>
-
-                                    <div
-                                        className="relative flex flex-col px-4 py-2 container-animation bg-white rounded-md">
-                                        <div className="relative flex gap-2 ">
+                                    <>
+                                        <div
+                                            className="relative rounded-b-none rounded-t-md rounded-tr-md h-48 md:h-40 bg-gray-300">
                                             <FetchImage
-                                                storagePath={employers.imageProfile}
+                                                storagePath={employers.imageBackground}
                                                 name={employers.fullName}
-                                                width={100}
-                                                height={100}
-                                                className="rounded-full border-4 border-white -mt-8 h-32 w-32"
+                                                width={460}
+                                                height={50}
+                                                className="rounded-b-none rounded-t-md rounded-tr-md h-48 md:h-40 w-full"
                                             />
-                                            <div className="flex flex-col">
-                                                <p
-                                                    className="text-lg font-bold --ellipse"
-                                                    title={employers.fullName}
-                                                >
-                                                    {employers.fullName}
-                                                </p>
-                                                <span className="flex items-center gap-1">
+                                        </div>
+
+                                        <div
+                                            className="relative flex flex-col px-4 py-2 container-animation bg-white rounded-md">
+                                            <div className="relative flex gap-2 ">
+                                                <FetchImage
+                                                    storagePath={employers.imageProfile}
+                                                    name={employers.fullName}
+                                                    width={100}
+                                                    height={100}
+                                                    className="rounded-full border-4 border-white -mt-8 h-32 w-32"
+                                                />
+                                                <div className="flex flex-col">
+                                                    <p
+                                                        className="text-lg font-bold --ellipse"
+                                                        title={employers.fullName}
+                                                    >
+                                                        {employers.fullName}
+                                                    </p>
+                                                    <span className="flex items-center gap-1">
                                                   <BuildingOffice2Icon className="h-5 w-5 text-[#339B5B]"/>
                                                   <p className="text-[#339B5B] font-semibold text-sm">
                                                     {employers.category}
                                                   </p>
                                                 </span>
 
-                                                <span className="flex items-center gap-1">
+                                                    <span className="flex items-center gap-1">
                                                   <MapPinIcon className="h-5 w-5 text-[#339B5B]"/>
                                                   <p className="text-[#339B5B] font-semibold text-sm">
                                                     {employers.adress}
                                                   </p>
                                                 </span>
+                                                </div>
+                                            </div>
+
+                                            <div className="relative">
+                                                {social.length > 0 && (
+                                                    social.map((social: any, index: number) =>
+                                                        <RedeSocial key={index} url={social}/>
+                                                    )
+                                                )}
                                             </div>
                                         </div>
-
-                                        <div className="relative">
-                                            {social.length > 0 && (
-                                                social.map((social: any, index: number) =>
-                                                    <RedeSocial key={index} url={social}/>
-                                                )
-                                            )}
-                                        </div>
-                                    </div>
-                                </Link>
+                                    </>
+                                </div>
                             );
                         })}
                     </section>
