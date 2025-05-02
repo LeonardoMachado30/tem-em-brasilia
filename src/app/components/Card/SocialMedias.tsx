@@ -8,7 +8,7 @@ export default function SocialMedias({ socialData }: { socialData?: [] }) {
   return (
     <div className={`flex gap-2 items-center item-hidden`}>
       {socialData &&
-        socialData.map((item: string, index: number) => {
+        socialData?.map((item: string, index: number) => {
           if (item.includes("facebook")) {
             return (
               <Link
