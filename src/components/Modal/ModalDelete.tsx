@@ -2,8 +2,8 @@ import { ButtonPrimary } from "@/components/Buttons/ButtonPrimary";
 import { collection, deleteDoc, doc, getFirestore } from "firebase/firestore";
 import { Employer } from "@/model/EmployerModel";
 import { useContext } from "react";
-import { AlertContext } from "@/app/lib/context/alertContexct";
-import { firebaseApp } from "@/app/firebase/firebaseInitApp";
+import { AlertContext } from "@/util/context/alertContexct";
+import { firebaseApp } from "@/components/firebase/firebaseInitApp";
 
 type DialogProps = {
   handleClose: () => void;

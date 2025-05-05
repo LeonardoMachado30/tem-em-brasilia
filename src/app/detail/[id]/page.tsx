@@ -7,9 +7,9 @@ import {
 } from "@heroicons/react/20/solid";
 import SocialMedias from "@/components/Card/SocialMedias";
 import ClipLoader from "react-spinners/ClipLoader";
-import {firestore} from "@/app/firebase/firebaseInitApp";
-import FetchImage from "@/app/util/Image";
-import BoxWrapp from "../BoxWrapp";
+import {firestore} from "@/components/firebase/firebaseInitApp";
+import FetchImage from "@/util/Image";
+import DetailCardWrap from "@/app/detail/DetailCardWrap";
 import {useEffect, useState} from "react";
 import {getDoc, DocumentData, doc} from "firebase/firestore/lite";
 import RedeSocial from "@/components/Card/RedeSocial";
@@ -70,23 +70,23 @@ export default function Page({params}: { params: { id: string } }) {
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2 p-8">
-                    <BoxWrapp
+                    <DetailCardWrap
                         icon={<Bars2Icon className="h-6 w-6 text-black"/>}
                         title="Decrição"
                     >
                         <p>{data.description}</p>
-                    </BoxWrapp>
+                    </DetailCardWrap>
 
-                    <BoxWrapp
+                    <DetailCardWrap
                         icon={<MapIcon className="h-6 w-6 text-black"/>}
                         title="Localização"
                     >
                         <p>
                             {data.adress} - {data.zip}
                         </p>
-                    </BoxWrapp>
+                    </DetailCardWrap>
 
-                    <BoxWrapp
+                    <DetailCardWrap
                         icon={<PhotoIcon className="h-6 w-6 text-black"/>}
                         title="Galeria"
                     >
@@ -103,22 +103,22 @@ export default function Page({params}: { params: { id: string } }) {
                                 </div>
                             ))}
                         </div>
-                    </BoxWrapp>
+                    </DetailCardWrap>
 
                     <div className="flex flex-col gap-2">
-                        <BoxWrapp
+                        <DetailCardWrap
                             icon={<PhotoIcon className="h-6 w-6 text-black"/>}
                             title="Serviços"
                         >
                             <div className="flex flex-col">{data[0]?.services}</div>
-                        </BoxWrapp>
+                        </DetailCardWrap>
 
-                        <BoxWrapp
+                        <DetailCardWrap
                             icon={<PlusCircleIcon className="h-6 w-6 text-black"/>}
                             title="O que mais temos"
                         >
                             <div className="flex flex-col">{data[0]?.services}</div>
-                        </BoxWrapp>
+                        </DetailCardWrap>
                     </div>
                 </div>
             </div>

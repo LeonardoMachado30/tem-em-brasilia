@@ -3,7 +3,7 @@ import logo from "$/img/logo_alternative.png";
 import { Login } from "./Login";
 import Link from "next/link";
 import { Bars4Icon } from "@heroicons/react/20/solid";
-import { FirebaseServices } from "@/app/firebase/FirebaseServices";
+import { FirebaseServices } from "@/components/firebase/FirebaseServices";
 
 const dev = process.env.NODE_ENV !== "production";
 

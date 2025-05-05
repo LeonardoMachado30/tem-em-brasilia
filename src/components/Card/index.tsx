@@ -3,8 +3,8 @@ import {BuildingOffice2Icon, MapPinIcon} from "@heroicons/react/24/outline";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import RedeSocial from "./RedeSocial";
-import FetchImage from "@/app/util/Image";
-import {firebaseApp} from "@/app/firebase/firebaseInitApp";
+import FetchImage from "@/util/Image";
+import {firebaseApp} from "@/components/firebase/firebaseInitApp";
 import {useCallback, useEffect, useState} from "react";
 import {
     collection,

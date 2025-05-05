@@ -3,10 +3,10 @@ import { ButtonPrimary } from "@/components/Buttons/ButtonPrimary";
 import { useContext, useState } from "react";
 import { Input } from "@/components/Buttons/Input";
 import { ButtonClose } from "@/components/Buttons/ButtonClose";
-import { AlertContext } from "@/app/lib/context/alertContexct";
+import { AlertContext } from "@/util/context/alertContexct";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import serviceAccount from "@/app/firebase/serviceAccountKey.json";
+import serviceAccount from "@/components/firebase/serviceAccountKey.json";
 import { Employer } from "@/model/EmployerModel";
 
 type ModalAddProp = {

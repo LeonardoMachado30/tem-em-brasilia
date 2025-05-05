@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
-import useStorage from "../firebase/hooks/Storage";
+import useStorage from "@/hooks/Storage";
 import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 
 type FetchImageProps = {

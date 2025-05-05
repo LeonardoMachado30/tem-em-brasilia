@@ -26,9 +26,6 @@
       "@/*": [
         "./src/*"
       ],
-      "@/components/*": [
-        "./src/app/components/*"
-      ],
       "$/*": [
         "./public/*"
       ]

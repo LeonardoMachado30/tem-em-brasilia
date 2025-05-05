@@ -68,7 +68,7 @@ export default function Success({ idField }: { idField?: string }) {
             VER EMPRESA
           </a>
           <a
-            href="/"
+            href="/public"
             data-modal-hide="default-modal"
             type="button"
             className="text-white  bg-[#006728] hover:border-white hover:text-white focus:ring-4 focus:outline-none focus:ring-[#75AE8B] font-medium rounded-md text-sm px-5 py-2.5 text-center dark:bg-[#006728] dark:hover:bg-[#006728] dark:focus:ring--[#006728]"
